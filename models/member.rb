@@ -33,5 +33,20 @@ class Member
 		return returning_data
 	end
 
+	def find
+		sql = "	SELECT * FROM members
+				WHERE id = $1"
+		values = [@id]
+		query = SqlRunner.run(sql,values)
+		return nil if query.first == nil
+		return Member.new(query.first)
+	end
+
+	def delete
+		sql = "	DELETE FROM members
+				WHERE id = $1"
+		values = [@id]
+		SqlRunner.run(sql,values)
+	end
 
 end
