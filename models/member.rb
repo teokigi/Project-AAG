@@ -19,16 +19,19 @@ class Member
 					status,
 					first_name,
 					last_name,
-					account_type,
+					account_type
 				)
 				VALUES
 				(
 					$1,$2,$3,$4
 				)
-				RETURNING id"
+				RETURNING *"
 		values = [@status,@first_name,@last_name,@account_type]
-		returning_id = Sqlrunner.run(sql,values)
-		returning_id = returning_id.first()
-		@id = returning_id['id'].to_i
+		returning_data = SqlRunner.run(sql,values)
+		returning_data = returning_data.first()
+		@id = returning_data['id'].to_i
+		return returning_data
 	end
+
+
 end
