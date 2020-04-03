@@ -6,7 +6,14 @@ class Member
 		attr_reader :id
 
 	def initialize(options)
-		@status = 'active'
+		#errors occur when passing through hash data, if status has pre-existing data
+		#status reverts to default and ignores new data
+		if !options['status']
+			@status = 'active'
+		else
+			@status = options['status']
+		end
+
 		@first_name = options['first_name']
 		@last_name = options['last_name']
 		@account_type = options['account_type']
@@ -49,4 +56,29 @@ class Member
 		SqlRunner.run(sql,values)
 	end
 
+	def update
+		sql = " UPDATE members SET
+ 				(
+					status,
+					first_name,
+					last_name,
+					account_type
+				) =
+ 				(
+					$1,$2,$3,$4
+				)
+				WHERE id = $5"
+		values = [@status,@first_name,@last_name,@account_type,@id]
+		SqlRunner.run(sql,values)
+	end
+
+	def toggle_status
+		if @status == "active"
+			@status = "inactive"
+			update()
+		else
+			@status = "active"
+			update()
+		end
+	end
 end
