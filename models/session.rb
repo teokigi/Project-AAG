@@ -62,13 +62,20 @@ class Session
         sql = "SELECT * FROM sessions WHERE id = $1"
         values = [@id]
         query = SqlRunner.run(sql,values).first()
-        return nil if query.first == nil
+        return nil if query == nil
         return Session.new(query)
     end
         #update
     def update()
-        sql = "UPDATE sessions SET (gym_class_id,maximum_bookings,time_slot,available_bookings) = ($1,$2,$3,$4) WHERE id = $5"
-        values = [@gym_class_id,@maximum_bookings,@time_slot,@available_bookings,@id]
+        sql = "	UPDATE sessions
+				SET (	gym_class_id,
+						maximum_bookings,
+						time_slot,
+						available_bookings,
+						status)
+ 				= ($1,$2,$3,$4,$5)
+ 				WHERE id = $6"
+        values = [@gym_class_id,@maximum_bookings,@time_slot,@available_bookings,@status,@id]
         SqlRunner.run(sql,values)
     end
 
