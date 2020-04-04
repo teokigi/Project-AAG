@@ -20,7 +20,7 @@ class Member
 		@id = options['id'].to_i if options['id']
 	end
 
-	def register
+	def create
 		sql = "INSERT INTO members
  				(
 					status,

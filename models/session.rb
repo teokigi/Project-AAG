@@ -21,7 +21,7 @@ class Session
 		end
 	end
 
-	def save()
+	def create()
         sql = "INSERT INTO sessions
         (
             gym_class_id,
