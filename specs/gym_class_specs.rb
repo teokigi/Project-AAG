@@ -36,9 +36,9 @@ class GymClassTest < Minitest::Test
 		else
 			before_length = before_length.length
 		end
-		# registering test seed data
-		class_test = GymClass.new(@standard_member01.register)
-		#find the count of returned entries after registering test seed
+		# creating test seed data
+		class_test = GymClass.new(@class01.create)
+		#find the count of returned entries after creating test seed
 		after_length = GymClass.find_all.length
 		change_in_length = after_length - before_length
 		assert_equal(1, change_in_length)

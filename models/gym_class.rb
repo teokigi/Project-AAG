@@ -1,4 +1,4 @@
-require_relative("../db/sql_runner")
+require_relative('../db/sqlrunner')
 
 class GymClass
     attr_accessor :name, :status
@@ -7,10 +7,10 @@ class GymClass
     def initialize( options )
         @id = options['id'].to_i if options['id']
         @name = options['name']
-		if options['status'] != nil
-			@status = options['status']
-		else
+		if !options['status']
 			@status = "active"
+		else
+			@status = options['status']
 		end
     end
         #create
@@ -24,10 +24,11 @@ class GymClass
         (
         $1, $2
         )
-        RETURNING id"
+        RETURNING *"
         values =[@status,@name]
-        visit = SqlRunner.run(sql, values).first
-        @id = visit['id'].to_i
+        query = SqlRunner.run(sql, values).first
+        @id = query['id'].to_i
+		return query
     end
         #read all
     def self.find_all()
@@ -40,9 +41,9 @@ class GymClass
     def find
         sql = "SELECT * FROM gym_classes WHERE id = $1"
         values = [@id]
-        query = SqlRunner.run(sql,values).first()
+        query = SqlRunner.run(sql,values)
         return nil if query.first == nil
-        return self.new(query)
+        return GymClass.new(query.first)
     end
         #delete all
     def self.delete_all()
