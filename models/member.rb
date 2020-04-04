@@ -39,6 +39,13 @@ class Member
 		@id = returning_data['id'].to_i
 		return returning_data
 	end
+        #read all
+    def self.find_all()
+        sql = "SELECT * FROM members"
+        query = SqlRunner.run(sql,[])
+        return nil if query.first == nil
+        return query.map{ |value| self.new(value)}
+    end
 
 	def find
 		sql = "	SELECT * FROM members

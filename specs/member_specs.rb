@@ -33,8 +33,29 @@ class Membertest < Minitest::Test
 		standard_member.delete
 	end
 
+	def test_003_find_all_testing
 
-	def test_003_delete_testing_and_find_failed_testing
+		before_length = Member.find_all
+
+		#method if returns nil should be set to 0, else count how many
+		#values are returned with .length
+		if before_length == nil
+			before_length = 0
+		else
+			before_length = before_length.length
+		end
+		# registering test seed data
+		standard_member = Member.new(@standard_member01.register)
+		#find the count of returned entries after registering test seed
+		after_length = Member.find_all.length
+		change_in_length = after_length - before_length
+		assert_equal(1, change_in_length)
+		#remove seeded data after testing
+		standard_member.delete
+	end
+
+
+	def test_004_delete_testing_and_find_failed_testing
 		#generates a new id assigning it to standard_member
 		standard_member = Member.new(@standard_member01.register)
 		#deletes table entry where id matches standard_member
@@ -43,7 +64,7 @@ class Membertest < Minitest::Test
 		refute(standard_member.find)
 	end
 
-	def test_004_Update_testing
+	def test_005_Update_testing
 		standard_member = Member.new(@standard_member01.register)
 		standard_member.first_name = "Updatetest"
 		standard_member.update
@@ -60,7 +81,7 @@ class Membertest < Minitest::Test
 		standard_member.delete
 	end
 
-	def test_005_deactivate_active_toggle_testing
+	def test_006_deactivate_active_toggle_testing
 		standard_member = Member.new(@standard_member01.register)
 		standard_member.toggle_status
 		assert_equal('inactive',standard_member.find.status)
