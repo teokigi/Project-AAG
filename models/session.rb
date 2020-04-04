@@ -11,7 +11,7 @@ class Session
 
 	def initialize(options)
 		@id = options['id'] if options['id']
-		@gym_class_id = options['id'].to_i
+		@gym_class_id = options['gym_class_id'].to_i
 		@time_slot = options['time_slot']
 		@maximum_bookings = options['maximum_bookings'].to_i
 
@@ -22,9 +22,9 @@ class Session
 		end
 
 		if !options['status']
-			@status = options['status']
-		else
 			@status = 'active'
+		else
+			@status = options['status']
 		end
 	end
 
