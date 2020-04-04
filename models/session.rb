@@ -2,16 +2,23 @@ require_relative('../db/sqlrunner.rb')
 
 class Session
 
-	def initialize
+	attr_reader :id
+	attr_accessor 	:gym_class_id,
+ 					:time_slot,
+ 					:maximum_bookings,
+ 					:available_bookings,
+					:status
+
+	def initialize(options)
 		@id = options['id'] if options['id']
-		@gym_class_id = options['id']
+		@gym_class_id = options['id'].to_i
 		@time_slot = options['time_slot']
-		@max_bookings = options['max_bookings']
+		@maximum_bookings = options['maximum_bookings'].to_i
 
 		if !options['available_bookings']
-			@available_bookings = @max_bookings
+			@available_bookings = @maximum_bookings
 		else
-			@available_bookings = options['available_bookings']
+			@available_bookings = options['available_bookings'].to_i
 		end
 
 		if !options['status']
@@ -25,7 +32,7 @@ class Session
         sql = "INSERT INTO sessions
         (
             gym_class_id,
-            max_bookings,
+            maximum_bookings,
             time_slot,
 			available_bookings
         )
@@ -35,12 +42,12 @@ class Session
         )
         RETURNING *"
         values = [  @gym_class_id,
-                    @max_bookings,
+                    @maximum_bookings,
                     @time_slot,
 					@available_bookings]
         query = SqlRunner.run(sql, values).first
         @id = query['id'].to_i
-        return query
+        return Session.new(query)
     end
         #read all
     def self.find_all()
@@ -60,15 +67,11 @@ class Session
     end
         #update
     def update()
-        sql = "UPDATE sessions SET (gym_class_id,max_bookings,time_slot,available_bookings) = ($1,$2,$3,$4) WHERE id = $5"
-        values = [@gym_class_id,@max_bookings,@time_slot,@available_bookings,@id]
+        sql = "UPDATE sessions SET (gym_class_id,maximum_bookings,time_slot,available_bookings) = ($1,$2,$3,$4) WHERE id = $5"
+        values = [@gym_class_id,@maximum_bookings,@time_slot,@available_bookings,@id]
         SqlRunner.run(sql,values)
     end
-        #delete all
-    def self.delete_all()
-        sql = "DELETE FROM sessions"
-        SqlRunner.run(sql,[])
-    end
+
         #delete entry with matching id
     def delete()
         sql = "DELETE FROM sessions WHERE id = $1"
@@ -76,6 +79,14 @@ class Session
         SqlRunner.run(sql,values)
     end
 
-end
+		def toggle_status
+			if @status == "active"
+				@status = "inactive"
+				update()
+			else
+				@status = "active"
+				update()
+			end
+		end
 
 end

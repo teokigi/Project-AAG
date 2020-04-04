@@ -28,7 +28,7 @@ class GymClass
         values =[@status,@name]
         query = SqlRunner.run(sql, values).first
         @id = query['id'].to_i
-		return query
+		return GymClass.new(query)
     end
         #read all
     def self.find_all()
@@ -45,11 +45,7 @@ class GymClass
         return nil if query.first == nil
         return GymClass.new(query.first)
     end
-        #delete all
-    def self.delete_all()
-        sql = "DELETE FROM gym_classes"
-        SqlRunner.run(sql,[])
-    end
+
         #delete by id
     def delete
         sql = "DELETE FROM gym_classes WHERE id = $1"

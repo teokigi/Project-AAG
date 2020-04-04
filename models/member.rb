@@ -37,7 +37,7 @@ class Member
 		returning_data = SqlRunner.run(sql,values)
 		returning_data = returning_data.first()
 		@id = returning_data['id'].to_i
-		return returning_data
+		return Member.new(returning_data)
 	end
         #read all
     def self.find_all()

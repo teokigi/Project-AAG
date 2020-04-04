@@ -15,7 +15,7 @@ class Membertest < Minitest::Test
 	end
 
 	def test_001_create_testing
-		standard_member = Member.new(@standard_member01.create)
+		standard_member = @standard_member01.create
 		#uses find function to find seed data by id.
 		#and tests if all iformation is accurate.
 		assert_equal('Test', standard_member.find.first_name)
@@ -27,7 +27,7 @@ class Membertest < Minitest::Test
 	end
 
 	def test_002_find_testing
-		standard_member = Member.new(@standard_member01.create)
+		standard_member = @standard_member01.create
 		assert_equal('Test',standard_member.find.first_name)
 		#removes test seed
 		standard_member.delete
@@ -45,7 +45,7 @@ class Membertest < Minitest::Test
 			before_length = before_length.length
 		end
 		# createing test seed data
-		standard_member = Member.new(@standard_member01.create)
+		standard_member = @standard_member01.create
 		#find the count of returned entries after createing test seed
 		after_length = Member.find_all.length
 		change_in_length = after_length - before_length
@@ -57,7 +57,7 @@ class Membertest < Minitest::Test
 
 	def test_004_delete_testing_and_find_failed_testing
 		#generates a new id assigning it to standard_member
-		standard_member = Member.new(@standard_member01.create)
+		standard_member = @standard_member01.create
 		#deletes table entry where id matches standard_member
 		standard_member.delete
 		#finding standard_member should return nil
@@ -65,7 +65,7 @@ class Membertest < Minitest::Test
 	end
 
 	def test_005_Update_testing
-		standard_member = Member.new(@standard_member01.create)
+		standard_member = @standard_member01.create
 		standard_member.first_name = "Updatetest"
 		standard_member.update
 		assert_equal('Updatetest',standard_member.find.first_name)
@@ -82,7 +82,7 @@ class Membertest < Minitest::Test
 	end
 
 	def test_006_deactivate_active_toggle_testing
-		standard_member = Member.new(@standard_member01.create)
+		standard_member = @standard_member01.create
 		standard_member.toggle_status
 		assert_equal('inactive',standard_member.find.status)
 		standard_member.toggle_status

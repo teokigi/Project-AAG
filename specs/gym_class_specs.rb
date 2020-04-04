@@ -14,7 +14,7 @@ class GymClassTest < Minitest::Test
 
 	def test_001_save_testing
 		#creating seed data
-		class01 = GymClass.new(@class01.create)
+		class01 = @class01.create
 		assert_equal('active',class01.find.status)
 		assert_equal('Test',class01.find.name)
 		#deletes seed data from table
@@ -22,7 +22,7 @@ class GymClassTest < Minitest::Test
 	end
 
 	def test_002_find_testing
-		class01 = GymClass.new(@class01.create)
+		class01 = @class01.create
 		assert_equal('Test',class01.find.name)
 		class01.delete
 	end
@@ -37,7 +37,7 @@ class GymClassTest < Minitest::Test
 			before_length = before_length.length
 		end
 		# creating test seed data
-		class_test = GymClass.new(@class01.create)
+		class_test = @class01.create
 		#find the count of returned entries after creating test seed
 		after_length = GymClass.find_all.length
 		change_in_length = after_length - before_length
@@ -47,7 +47,7 @@ class GymClassTest < Minitest::Test
 	end
 
 	def test_004_update_testing
-		class01 = GymClass.new(@class01.create)
+		class01 = @class01.create
 		class01.name = "UpdateTesting"
 		class01.update
 		assert_equal('UpdateTesting',class01.find.name)
@@ -58,13 +58,13 @@ class GymClassTest < Minitest::Test
 	end
 
 	def test_005_delete_testing
-		class01 = GymClass.new(@class01.create)
+		class01 = @class01.create
 		class01.delete
 		refute(class01.find)
 	end
 
 	def test_006_deactivate_active_toggle_testing
-		gym_class = GymClass.new(@class01.create)
+		gym_class = @class01.create
 		gym_class.toggle_status
 		assert_equal('inactive',gym_class.find.status)
 		gym_class.toggle_status

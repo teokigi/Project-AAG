@@ -19,7 +19,7 @@ CREATE TABLE gym_classes(
 CREATE TABLE sessions(
 	id SERIAL PRIMARY KEY,
 	status VARCHAR(255),
-	gym_class_id INT REFERENCES gym_classes(id),
+	gym_class_id INT REFERENCES gym_classes(id) ON DELETE CASCADE,
 	time_slot VARCHAR(255),
 	maximum_bookings INT,
 	Available_bookings INT
@@ -28,6 +28,6 @@ CREATE TABLE sessions(
 CREATE TABLE bookings(
 	id SERIAL PRIMARY KEY,
 	status VARCHAR(255),
-	session_id INT REFERENCES sessions(id),
-	member_id INT REFERENCES members(id)
+	session_id INT REFERENCES sessions(id) ON DELETE CASCADE,
+	member_id INT REFERENCES members(id) ON DELETE CASCADE
 );
