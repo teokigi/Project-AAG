@@ -1,15 +1,6 @@
 require_relative("../db/sql_runner")
 
-#template find and replace
-# tablename = gym_classes
-# classname capitalize = Gym_class
-# first variable = name
-# second varible = status
-# third variable = >echo<
-# code .to_i for relevant variables in initialize that are integers
-#line 34,70 references number of variables of your class. edit as appropriate
-#fill attr reader and attr accessor
-class Gym_class
+class GymClass
     attr_accessor :name, :status
     attr_reader :id
         #initialize
@@ -31,12 +22,10 @@ class Gym_class
         )
         VALUES
         (
-        $1, $2, $3
+        $1, $2
         )
         RETURNING id"
-        values = [
-                    @status,
-                    @name]
+        values =[@status,@name]
         visit = SqlRunner.run(sql, values).first
         @id = visit['id'].to_i
     end
@@ -48,7 +37,7 @@ class Gym_class
         return query.map { |value| self.new( value ) }
     end
         #find by id
-    def self.find
+    def find
         sql = "SELECT * FROM gym_classes WHERE id = $1"
         values = [@id]
         query = SqlRunner.run(sql,values).first()
@@ -61,9 +50,9 @@ class Gym_class
         SqlRunner.run(sql,[])
     end
         #delete by id
-    def self.delete_by_id(id)
+    def delete
         sql = "DELETE FROM gym_classes WHERE id = $1"
-        values = [id]
+        values = [@id]
         query = SqlRunner.run(sql,values)
     end
         #update
