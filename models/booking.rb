@@ -1,4 +1,4 @@
-require_relative("../db/sql_runner")
+require_relative("../db/sqlrunner")
 
 #template find and replace
 # tablename = bookings
@@ -10,8 +10,8 @@ require_relative("../db/sql_runner")
 #line 32,79 references number of variables of your class. edit as appropriate
 #fill attr reader and attr accessor
 class Booking
-    attr_accessor
-    attr_reader
+    attr_accessor :member_id, :session_id, :status
+    attr_reader :id
         #initialize
     def initialize( options )
         @id = options['id'].to_i if options['id']
@@ -21,7 +21,7 @@ class Booking
 		if options['status']
         @status = options['status']
 		else
-		@status = active
+		@status = 'active'
 		end
     end
         #create
@@ -57,7 +57,7 @@ class Booking
         sql = "SELECT * FROM bookings WHERE id = $1"
         values = [@id]
         query = SqlRunner.run(sql,values).first()
-        return nil if query.first == nil
+        return nil if query == nil
         return Booking.new(query)
     end
         #update

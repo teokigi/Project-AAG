@@ -3,8 +3,8 @@ require('minitest/autorun')
 require('minitest/reporters')
 
 require_relative('../models/booking.rb')
-require_relative('../models/members.rb')
-require_relative('../models/gym_classes.rb')
+require_relative('../models/member.rb')
+require_relative('../models/gym_class.rb')
 require_relative('../models/session.rb')
 
 Minitest::Reporters.use!
@@ -24,14 +24,14 @@ class BookingTest < Minitest::Test
 										'maximum_bookings'=>30})
 		@test_session = @test_session.create
 		@test_booking = Booking.new({	'session_id'=>@test_session.id,
-										'member_id'=>@standard_member.id})
+										'member_id'=>@standard_member01.id})
 	end
 
 	def test_001_save_testing
 		test_booking = @test_booking.create
-		session_id = @test_session.id
+		session_id = @test_session.id.to_i
 		assert_equal(session_id,test_booking.find.session_id)
-		member_id = @standard_member.id
+		member_id = @standard_member01.id.to_i
 		assert_equal(member_id,test_booking.find.member_id)
 
 		test_booking.delete
@@ -56,7 +56,6 @@ class BookingTest < Minitest::Test
 		change_in_length = after_length - before_length
 		assert_equal(1, change_in_length)
 		#remove seeded data after testing
-		class_test.delete
 		test_booking.delete
 		@test_session.delete
 		@standard_member01.delete
@@ -66,7 +65,7 @@ class BookingTest < Minitest::Test
 
 	def test_003_find_testing
 		test_booking = @test_booking.create
-		session_id = @test_session.id
+		session_id = @test_session.id.to_i
 		assert_equal(session_id,test_booking.find.session_id)
 
 		test_booking.delete
