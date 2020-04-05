@@ -20,3 +20,9 @@ post '/sessions/:session_id/:class_id/delete' do
 	Session.delete_by_id(params['session_id'].to_i)
 	redirect to("/sessions/#{params['class_id']}/index")
 end
+
+post '/sessions/:session_id/:class_id/toggle' do
+	toggling_class = Session.find_by_id(params['session_id'].to_i)
+	toggling_class.toggle_status
+	redirect to("/sessions/#{params['class_id']}/index")
+end

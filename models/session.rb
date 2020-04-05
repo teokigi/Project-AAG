@@ -57,6 +57,13 @@ class Session
         return nil if query.first == nil
         return query.map { |value| self.new( value ) }
     end
+    def self.find_by_id(id)
+        sql = "SELECT * FROM sessions WHERE id = $1"
+        values = [id]
+        query = SqlRunner.run(sql,values).first()
+        return nil if query.first == nil
+        return self.new(query)
+    end
 
         #read one with matching id
     def find

@@ -21,7 +21,7 @@
 	<td class="session_table_data"> <%= session.available_bookings %> </td>
 
 	<td id = "session_index_command_buttons">
-		<form action="/sessions/<%= session.id %>/index" method "GET">
+		<form action="/bookings/<%= session.id %>/index" method "GET">
 		<input type="submit" value="View">
 		</form>
 	    <form action="/sessions/<%= session.id %>/<%= @gym_class.id %>/delete" method="POST">

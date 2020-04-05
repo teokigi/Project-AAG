@@ -136,7 +136,16 @@ class SessionTest < Minitest::Test
 		Session.delete_by_id(id)
 		#finding standard_member should return nil
 		refute(test_session.find)
+		@test_gym_class.delete
 	end
 
+	def test_009_find_by_id_testing
+		test_session = @test_session.create
+		id = test_session.id
+		assert_equal(id,Session.find_by_id(id).id)
+		#removes test seed
+		test_session.delete
+		@test_gym_class.delete
+	end
 
 end
