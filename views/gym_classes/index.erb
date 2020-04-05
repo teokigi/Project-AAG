@@ -16,13 +16,13 @@
 	<td class="gym_class_table_data"> <%= gym_class.name %> </td>
 	<td class="gym_class_table_data"> <%= gym_class.status %> </td>
 	<td id = "gym_class_index_command_buttons">
-		<form action="/gym_classs/<%= gym_class.id %>/view" method "GET">
+		<form action="/gym_classes/<%= gym_class.id %>/view" method "GET">
 		<input type="submit" value="View">
 		</form>
-	    <form action="/gym_classs/<%= gym_class.id %>/delete" method="POST">
+	    <form action="/gym_classes/<%= gym_class.id %>/delete" method="POST">
         <input type="submit" value="delete" />
     	</form>
-		<form action="/gym_classs/<%= gym_class.id %>/toggle" method="POST">
+		<form action="/gym_classes/<%= gym_class.id %>/toggle" method="POST">
 		<% if gym_class.status == "active" %>
 			<input type="submit" value="deactivate">
 		<% else %>
