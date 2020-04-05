@@ -34,17 +34,18 @@ class Session
             gym_class_id,
             maximum_bookings,
             time_slot,
-			available_bookings
+			available_bookings,
+			status
         )
         VALUES
         (
-        $1, $2, $3, $4
+        $1, $2, $3, $4, $5
         )
         RETURNING *"
         values = [  @gym_class_id,
                     @maximum_bookings,
                     @time_slot,
-					@available_bookings]
+					@available_bookings,@status]
         query = SqlRunner.run(sql, values).first
         @id = query['id'].to_i
         return Session.new(query)
@@ -65,6 +66,15 @@ class Session
         return nil if query == nil
         return Session.new(query)
     end
+
+	def self.find_sessions_with_gym_class_id(id)
+		sql = "SELECT * FROM sessions
+				WHERE gym_class_id = $1"
+		values = [id]
+		query = SqlRunner.run(sql,values)
+		return nil if query == nil
+		return query.map { |value| self.new( value ) }
+	end
         #update
     def update()
         sql = "	UPDATE sessions
@@ -90,7 +100,7 @@ class Session
 			if @status == "active"
 				@status = "inactive"
 				update()
-			else
+			elsif @status == "inactive"
 				@status = "active"
 				update()
 			end

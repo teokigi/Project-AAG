@@ -91,9 +91,8 @@ class SessionTest < Minitest::Test
 	end
 
 	def test_006_deactivate_active_toggle_testing
-		test_gym_class = @test_gym_class.create
 		test_session = Session.new({	'name'=>'Test',
-										'gym_class_id'=>test_gym_class.id,
+										'gym_class_id'=>@test_gym_class.id,
 										'time_slot'=>'0900',
 										'maximum_bookings'=>30})
 		test_session = test_session.create
@@ -107,5 +106,24 @@ class SessionTest < Minitest::Test
 		@test_gym_class.delete
 	end
 
+	def test_002_find_sessions_with_gym_class_id_testing
+		before_length = Session.find_sessions_with_gym_class_id(@test_gym_class.id)
+		#method if returns nil should be set to 0, else count how many
+		#values are returned with .length
+		if before_length == nil
+			before_length = 0
+		else
+			before_length = before_length.length
+		end
+		# registering test seed data
+		test_session = @test_session.create
+		#find the count of returned entries after registering test seed
+		after_length = Session.find_sessions_with_gym_class_id(@test_gym_class.id).length
+		change_in_length = after_length - before_length
+		assert_equal(1, change_in_length)
+		#remove seeded data after testing
+		@test_gym_class.delete
+		test_session.delete
+	end
 
 end
