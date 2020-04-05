@@ -46,6 +46,14 @@ class Member
         return nil if query.first == nil
         return query.map{ |value| self.new(value)}
     end
+        #find by id
+    def self.find_by_id(id)
+        sql = "SELECT * FROM members WHERE id = $1"
+        values = [id]
+        query = SqlRunner.run(sql,values).first()
+        return nil if query.first == nil
+        return self.new(query)
+    end
 
 	def find
 		sql = "	SELECT * FROM members
@@ -94,4 +102,6 @@ class Member
 			update()
 		end
 	end
+
+
 end

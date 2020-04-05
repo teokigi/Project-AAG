@@ -18,3 +18,8 @@ post '/members/:member_id/delete' do
 	Member.delete_by_id(@params['member_id'].to_i)
 	redirect to("/members")
 end
+
+post '/members/:member_id/toggle' do
+	member = Member.find_by_id(@params['member_id'].to_i)
+	redirect to("/members")
+end

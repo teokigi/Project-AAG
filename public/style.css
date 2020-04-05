@@ -6,3 +6,7 @@
 	display:flex;
 	justify-content: space-around;
 }
+
+#members_index_command_buttons{
+	display:inline-flex;
+}
