@@ -45,11 +45,24 @@ class GymClass
         return nil if query.first == nil
         return GymClass.new(query.first)
     end
-
+        #find by id
+    def self.find_by_id(id)
+        sql = "SELECT * FROM gym_classes WHERE id = $1"
+        values = [id]
+        query = SqlRunner.run(sql,values).first()
+        return nil if query.first == nil
+        return self.new(query)
+    end
         #delete by id
     def delete
         sql = "DELETE FROM gym_classes WHERE id = $1"
         values = [@id]
+        query = SqlRunner.run(sql,values)
+    end
+        #delete by id
+    def self.delete_by_id(id)
+        sql = "DELETE FROM gym_classes WHERE id = $1"
+        values = [id]
         query = SqlRunner.run(sql,values)
     end
         #update

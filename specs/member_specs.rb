@@ -100,7 +100,7 @@ class Membertest < Minitest::Test
 		refute(standard_member.find)
 	end
 
-	def test_008_find_testing
+	def test_008_find_by_id_testing
 		standard_member = @standard_member01.create
 		id = standard_member.id
 		assert_equal('Test',Member.find_by_id(id).first_name)

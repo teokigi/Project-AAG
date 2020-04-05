@@ -13,3 +13,8 @@ post '/gym_classes' do
 	new_class.create
 	redirect to("/gym_classes")
 end
+
+post '/gym_classes/:class_id/delete' do
+	delete_by_id(params['class_id'].to_i)
+	redirect to("/gym_classes")
+end

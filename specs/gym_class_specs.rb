@@ -71,4 +71,22 @@ class GymClassTest < Minitest::Test
 		assert_equal('active',gym_class.find.status)
 		gym_class.delete
 	end
+
+	def test_007_delete_by_id_testing
+		#generates a new id assigning it to gym_class
+		gym_class = @class01.create
+		id = gym_class.id
+		#deletes table entry where id matches gym_class
+		GymClass.delete_by_id(id)
+		#finding gym_class should return nil
+		refute(gym_class.find)
+	end
+
+	def test_008_find_by_id_testing
+		gym_class = @class01.create
+		id = gym_class.id
+		assert_equal('Test',GymClass.find_by_id(id).name)
+		#removes test seed
+		gym_class.delete
+	end
 end
