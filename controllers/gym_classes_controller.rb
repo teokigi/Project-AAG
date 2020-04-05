@@ -18,3 +18,9 @@ post '/gym_classes/:class_id/delete' do
 	GymClass.delete_by_id(params['class_id'].to_i)
 	redirect to("/gym_classes")
 end
+
+post '/gym_classes/:class_id/toggle' do
+	toggling_class = GymClass.find_by_id(@params['class_id'].to_i)
+	toggling_class.toggle_status
+	redirect to("/gym_classes")
+end
