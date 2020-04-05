@@ -17,6 +17,6 @@ post '/sessions' do
 end
 
 post '/sessions/:session_id/:class_id/delete' do
-	delete_by_id(params['session_id'].to_i)
+	Session.delete_by_id(params['session_id'].to_i)
 	redirect to("/sessions/#{params['class_id']}/index")
 end
