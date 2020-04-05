@@ -1,10 +1,9 @@
 require( 'sinatra' )
 require( 'sinatra/contrib/all' )
-
-require_relative('../models/members.rb')
+require_relative('../models/member.rb')
 also_reload( '../models/*' )
 
 get '/members' do
-	# @members = Members.find_all
-	erb(:"members/index")
+	@members = Member.find_all
+	erb( :"members/index" )
 end
