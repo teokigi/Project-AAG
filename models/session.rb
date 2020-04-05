@@ -95,15 +95,21 @@ class Session
         values = [@id]
         SqlRunner.run(sql,values)
     end
+		#delete by id
+    def self.delete_by_id(id)
+        sql = "DELETE FROM sessions WHERE id = $1"
+        values = [id]
+        query = SqlRunner.run(sql,values)
+    end
 
-		def toggle_status
-			if @status == "active"
-				@status = "inactive"
-				update()
-			elsif @status == "inactive"
-				@status = "active"
-				update()
-			end
+	def toggle_status
+		if @status == "active"
+			@status = "inactive"
+			update()
+		elsif @status == "inactive"
+			@status = "active"
+			update()
 		end
+	end
 
 end

@@ -106,7 +106,7 @@ class SessionTest < Minitest::Test
 		@test_gym_class.delete
 	end
 
-	def test_002_find_sessions_with_gym_class_id_testing
+	def test_007_find_sessions_with_gym_class_id_testing
 		before_length = Session.find_sessions_with_gym_class_id(@test_gym_class.id)
 		refute(before_length)
 		#method if returns nil should be set to 0, else count how many
@@ -126,5 +126,17 @@ class SessionTest < Minitest::Test
 		@test_gym_class.delete
 		test_session.delete
 	end
+
+	def test_008_delete_by_id_testing
+		#generates a new id assigning it to standard_member
+		test_session = @test_session.create
+		assert(test_session)
+		id = test_session.id
+		#deletes table entry where id matches standard_member
+		Session.delete_by_id(id)
+		#finding standard_member should return nil
+		refute(test_session.find)
+	end
+
 
 end
