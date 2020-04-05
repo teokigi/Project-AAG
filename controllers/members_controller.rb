@@ -8,6 +8,11 @@ get '/members' do
 	erb( :"members/index" )
 end
 
+get '/members/:member_id/view' do
+	@member = Member.find_by_id(@params['member_id'].to_i)
+	erb( :"/members/view")
+end
+
 post '/members' do
 	new_member = Member.new(params)
 	new_member.create
@@ -23,4 +28,10 @@ post '/members/:member_id/toggle' do
 	member = Member.find_by_id(@params['member_id'].to_i)
 	member.toggle_status
 	redirect to("/members")
+end
+
+post '/members/update' do
+	@member = Member.new(params)
+	@member.update
+	redirect to ("/members/#{@member.id}/view")
 end
