@@ -1,0 +1,8 @@
+#layout_heading{
+	display:flex;
+	justify-content:center;
+}
+#navigation{
+	display:flex;
+	justify-content: space-around;
+}
