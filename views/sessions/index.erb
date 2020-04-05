@@ -24,10 +24,10 @@
 		<form action="/sessions/<%= session.id %>/index" method "GET">
 		<input type="submit" value="View">
 		</form>
-	    <form action="/sessions/<%= session.id %>/delete" method="POST">
+	    <form action="/sessions/<%= session.id %>/<%= @gym_class.id %>/delete" method="POST">
         <input type="submit" value="delete">
     	</form>
-		<form action="/sessions/<%= session.id %>/toggle" method="POST">
+		<form action="/sessions/<%= session.id %>/<%= @gym_class.id %>/toggle" method="POST">
 		<% if session.status == "active" %>
 			<input type="submit" value="deactivate">
 		<% else %>

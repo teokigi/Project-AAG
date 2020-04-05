@@ -13,5 +13,10 @@ end
 post '/sessions' do
 	new_session = Session.new(@params)
 	new_session.create
-	redirect("/sessions/#{@params['gym_class_id']}/index")
+	redirect to("/sessions/#{@params['gym_class_id']}/index")
+end
+
+post '/sessions/:session_id/:class_id/delete' do
+	delete_by_id(params['session_id'].to_i)
+	redirect to("/sessions/#{params['class_id']}/index")
 end
