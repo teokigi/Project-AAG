@@ -1,1 +1,62 @@
-<h2> bookings index page</h2>
+<h2 align=center> Booking Index Page </h2>
+<hr>
+<table border=1 align=center>
+<tr>
+<th colspan = 6> Booking list</th>
+</tr>
+<tr>
+<th> ID </th>
+<th> Member ID </th>
+<th> Member Name </th>
+<th> Gym class </th>
+<th> time slot </th>
+<th> commands </th>
+<% if @bookings != nil %>
+<% 	for booking in @bookings %>
+<tr class="booking_table_row_contents">
+	<td class="booking_table_data"> <%= booking.id%> </td>
+	<td class="booking_table_data"> <%= @member.id %> </td>
+	<td class="booking_table_data"> <%= @member.first_name %> <%= @member.last_name %> </td>
+	<td class="booking_table_data"> <%= @gym_class.name %> </td>
+	<td class="booking_table_data"> <%= @session.time_slot %> </td>
+	<td id = "booking_index_command_buttons">
+	    <form action="/bookings/<%= booking.id %>/<%= @session.id %>/delete" method="POST">
+        <input type="submit" value="delete" />
+    	</form>
+		<form action="/bookings/<%= booking.id %>/<%= @session.id %>toggle" method="POST">
+		<% if booking.status == "active" %>
+			<input type="submit" value="deactivate">
+		<% else %>
+			<input type="submit" value="activate">
+		<% end %>
+		</form>
+	</td>
+</tr>
+<% end %>
+<% else %>
+	<tr>
+		<td colspan = 6 align = center> no bookings currently registered </td>
+	</tr>
+<% end %>
+</table>
+<hr>
+
+<h2 align=center>Register New Booking Form:</h2>
+<br>
+<form action = "/gym_classes" method="post" align = center>
+	<label for = "gym_class_id">Gym Class Name:</label>
+	<select name="gym_class_id">
+		<option value="<%= @gym_class.id %>"><%= @gym_class.name %></option>
+	</select>
+	<label for = "time_slot">Time Slot:</label>
+	<select name="session_id">
+		<option value="<%= @session.id %>"><%= @session.time_slot %></option>
+	</select>
+	<label for ="member_id">Member:</label>
+	<select name="member_id">
+		<% for member in @members %>
+		<option value="<%= member.id %>">ID:<%= member.id %>,Name:<%= member.first_name %> <%= member.last_name %></option>
+		<% end %>
+	</select>
+	<input type = "submit" value = "Generate">
+</form>

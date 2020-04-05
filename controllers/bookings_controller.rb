@@ -10,6 +10,6 @@ get '/bookings/:session_id/index' do
 	@members = Member.find_all
 	@session = Session.find_by_id(params['session_id'].to_i)
 	@gym_class = GymClass.find_by_id(@session.gym_class_id)
-	@all_bookings = Booking.find_bookings_with_session_id(params['session_id'].to_i)
+	@bookings = Booking.find_bookings_with_session_id(params['session_id'].to_i)
 	erb(:"/bookings/index")
 end
