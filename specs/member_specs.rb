@@ -89,4 +89,15 @@ class Membertest < Minitest::Test
 		assert_equal('active',standard_member.find.status)
 		standard_member.delete
 	end
+
+	def test_007_delete_by_id_testing
+		#generates a new id assigning it to standard_member
+		standard_member = @standard_member01.create
+		id = standard_member.id
+		#deletes table entry where id matches standard_member
+		Member.delete_by_id(id)
+		#finding standard_member should return nil
+		refute(standard_member.find)
+	end
+
 end

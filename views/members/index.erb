@@ -1,1 +1,49 @@
-<h2> members index page </h2>
+<h2 align = center> members index page </h2>
+<hr>
+<table border=1 align=center>
+<tr>
+<th colspan = 5> Members list</th>
+</tr>
+<tr>
+<th> Account Type </th>
+<th> first name </th>
+<th> last name </th>
+<th> status </th>
+<th> Commands </th>
+<% if @members != nil %>
+<% 	for member in @members %>
+<tr align="center">
+	<td> <%= member.account_type%> </td>
+	<td> <%= member.first_name %> </td>
+	<td> <%= member.last_name %> </td>
+	<td> <%= member.status %> </td>
+	<td>
+	    <form action="/members/<%= member.id %>/delete" method="POST">
+        <input type="submit" value="delete" />
+    	</form>
+	</td>
+</tr>
+<% end %>
+<% else %>
+	<tr>
+		<td colspan = 5 align = center> no members currently registered </td>
+	</tr>
+<% end %>
+</table>
+<hr>
+<hr>
+<hr>
+Register New member form:
+<br>
+<form action = "/members" method="post" align = center>
+	<label for = "first_name">First name:</label>
+	<input type = "text" id="fname" name="first_name">
+	<label for = "last_name">last name:</label>
+	<input type = "text" id="lname" name="last_name">
+	<label for = "account_type">Choose Account Type</label>
+	<select name ="account_type">
+		<option value = "standard">Standard Account</option>
+		<option value = "premium"> Premium Account</option>
+	</select>
+	<input type = "submit" value = "register">
+</form>
