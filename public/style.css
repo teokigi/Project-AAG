@@ -21,3 +21,16 @@
 	padding:5px;
 
 }
+.gym_class_table_data{
+	padding:5px;
+
+}
+.gym_class_table_row_contents{
+	text-align:center;
+}
+#gym_class_index_command_buttons{
+	display:inline-flex;
+	justify-content:space-around;
+	margin: 5px;
+	border:0px;
+}
