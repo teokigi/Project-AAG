@@ -52,6 +52,14 @@ class Booking
         return query.map { |value| self.new( value ) }
     end
 
+	def self.find_bookings_with_session_id(id)
+		sql = "SELECT * FROM bookings
+				WHERE session_id = $1"
+		values = [id]
+		query = SqlRunner.run(sql,values)
+		return nil if query.first == nil
+		return query.map { |value| self.new( value ) }
+	end
         #read one with matching id
     def find
         sql = "SELECT * FROM bookings WHERE id = $1"
