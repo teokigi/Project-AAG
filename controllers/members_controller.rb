@@ -15,7 +15,6 @@ post '/members' do
 end
 
 post '/members/:member_id/delete' do
-	id = @params['member_id'].to_i
-	Member.delete_by_id(id)
-	# redirect to("/members")
+	Member.delete_by_id(@params['member_id'].to_i)
+	redirect to("/members")
 end
