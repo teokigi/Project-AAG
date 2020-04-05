@@ -1,0 +1,33 @@
+<h1> Member View </h1>
+<hr>
+<h2> Current Record </h2>
+first_name : <%= @member.first_name %>
+<br>
+last_name : <%= @member.last_name %>
+<br>
+Account type : <%= @member.account_type %>
+<br>
+Account status: <%= @member.status %>
+<hr>
+<h2> Update Record Form  </h2>
+<form action="/members/update" method="post">
+<label for="id"> Member id:</label><br>
+<select name="id">
+	<option value=<%= @member.id %> selected><%= @member.id %></option>
+</select><br>
+<label for="first_name">First Name:</label><br>
+<input type="text" name="first_name" value="<%=@member.first_name%>"><br>
+<label for="last_name">Last Name:</label><br>
+<input type="text" name="last_name" value="<%=@member.last_name%>"><br>
+<label for="account_type">Account Type:</label><br>
+<select name="account_type">
+	<option value="standard">Standard Account</option>
+	<option value="premium">Premium Account</option>
+</select><br>
+<label for="status">Account Status:</label><br>
+<select name="status">
+	<option value="active">Active Account</option>
+	<option value="inactive">Deactivated Account</option>
+</select><br><br>
+<input type="submit" value="Click Here To Update The Current Member Record">
+</form>
