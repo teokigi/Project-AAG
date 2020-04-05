@@ -9,3 +9,9 @@ get '/sessions/:class_id/index' do
 	@sessions = Session.find_sessions_with_gym_class_id(@gym_class.id)
 	erb(:"sessions/index")
 end
+
+post '/sessions' do
+	new_session = Session.new(@params)
+	new_session.create
+	redirect("/sessions/#{@params['gym_class_id']}/index")
+end

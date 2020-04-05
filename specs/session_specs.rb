@@ -118,7 +118,7 @@ class SessionTest < Minitest::Test
 		end
 		# registering test seed data
 		test_session = @test_session.create
-		#find the count of returned entries after registering test seed
+		#find the count of re	turned entries after registering test seed
 		after_length = Session.find_sessions_with_gym_class_id(@test_gym_class.id).length
 		change_in_length = after_length - before_length
 		assert_equal(1, change_in_length)
