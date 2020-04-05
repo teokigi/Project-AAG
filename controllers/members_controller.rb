@@ -21,5 +21,6 @@ end
 
 post '/members/:member_id/toggle' do
 	member = Member.find_by_id(@params['member_id'].to_i)
+	member.toggle_status
 	redirect to("/members")
 end

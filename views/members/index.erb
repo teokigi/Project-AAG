@@ -12,11 +12,11 @@
 <th> Commands </th>
 <% if @members != nil %>
 <% 	for member in @members %>
-<tr align="center">
-	<td> <%= member.account_type%> </td>
-	<td> <%= member.first_name %> </td>
-	<td> <%= member.last_name %> </td>
-	<td> <%= member.status %> </td>
+<tr class="member_table_row_contents">
+	<td class="member_table_data"> <%= member.account_type%> </td>
+	<td class="member_table_data"> <%= member.first_name %> </td>
+	<td class="member_table_data"> <%= member.last_name %> </td>
+	<td class="member_table_data"> <%= member.status %> </td>
 	<td id = "members_index_command_buttons">
 		<form action="/members/<%= member.id %>/edit" method "GET">
 		<input type="button" value="Edit">
