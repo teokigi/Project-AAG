@@ -64,7 +64,7 @@ class Member
 	end
         #delete by id
     def self.delete_by_id(id)
-        sql = "DELETE FROM >alpha< WHERE id = $1"
+        sql = "DELETE FROM members WHERE id = $1"
         values = [id]
         query = SqlRunner.run(sql,values)
     end
