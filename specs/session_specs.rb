@@ -108,6 +108,7 @@ class SessionTest < Minitest::Test
 
 	def test_002_find_sessions_with_gym_class_id_testing
 		before_length = Session.find_sessions_with_gym_class_id(@test_gym_class.id)
+		refute(before_length)
 		#method if returns nil should be set to 0, else count how many
 		#values are returned with .length
 		if before_length == nil

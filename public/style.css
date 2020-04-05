@@ -34,3 +34,24 @@
 	margin: 5px;
 	border:0px;
 }
+
+.centerall{
+	display:flex;
+	text-align:right;
+	justify-content: flex-end;
+	text-decoration-color:yellow;
+}
+
+#session_index_command_buttons{
+	display:inline-flex;
+	justify-content:space-around;
+	margin: 5px;
+	border:0px;
+}
+.session_table_data{
+	padding:5px;
+
+}
+.session_table_row_contents{
+	text-align:center;
+}

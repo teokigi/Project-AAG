@@ -72,7 +72,7 @@ class Session
 				WHERE gym_class_id = $1"
 		values = [id]
 		query = SqlRunner.run(sql,values)
-		return nil if query == nil
+		return nil if query.first == nil
 		return query.map { |value| self.new( value ) }
 	end
         #update
