@@ -8,21 +8,31 @@
 	<title>Athletes Assemble Gym</title>
 </head>
 <body>
-<h1 id="layout_heading" align=center><a href="/" alt="Home Page Link">Athletes Assemble Gym</a></h1>
-<nav align=center id = "navigation">
-	<a href="/members" alt="Link to View and Edit Members">Members page</a>
-	<a href="/gym_classes" alt="Link to View and Edit classes">Classes page</a>
-	<a href="/bookings" alt="Link to make bookings">Bookings Page</a>
-</nav>
-<hr>
-<div>
-<%= yield %>
-</div>
-<hr>
-<p align="right">Athletes Assemble Gym is Created By Tony Tang Member of the G18 Code Clan Software Development Team</p>
-<br>
-<br>
-<br>
+<div class="container">
+	<div class"toppane">
+		<nav id = "navigation">
+			<a href="/members" alt="Link to View and Edit Members">Members page</a>
+			<a href="/gym_classes" alt="Link to View and Edit classes">Classes page</a>
+			<a href="/bookings" alt="Link to make bookings">Bookings Page</a>
+		</nav>
+		<h1 id="layout_heading" align=center><a href="/" alt="Home Page Link">Athletes Assemble Gym</a></h1>
 
+	</div>
+
+	<div class="leftpane">
+
+	</div>
+
+	<div class="middlepane">
+	<%= yield %>
+	</div>
+
+	<div class="rightpane">
+
+	</div>
+	<hr>
+	<p align="right">Athletes Assemble Gym is Created By Tony Tang Member of the G18 Code Clan Software Development Team</p>
+	<br>
+</div>
 </body>
 </html>

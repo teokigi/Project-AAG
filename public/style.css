@@ -1,3 +1,42 @@
+body, html{
+	width:100%;
+	height:100%;
+	margin:0;
+	background-color:#CCCCCC;
+}
+
+.container{
+	width:100%;
+	height:100%;
+}
+.toppane{
+	width:100%;
+	height:90px;
+	border-collapse:collapse;
+	background-colour: #4D4F55;
+}
+.middlepane{
+	width:70%;
+	height:75%;
+	float:left;
+	background-color: white;
+	border-collapse:collapse;
+	overflow:scroll;
+}
+.leftpane{
+ 	width:15%;
+	height:75%;
+	float:left;
+	background-color:#4D4F55;
+	border-collapse:collapse;
+}
+.rightpane{
+	width:15%;
+	height:75%;
+	float:right;
+	background-color:#4D4F55;
+	border-collapse:collapse;
+}
 #layout_heading{
 	display:flex;
 	justify-content:center;
@@ -5,8 +44,10 @@
 #navigation{
 	display:flex;
 	justify-content: space-around;
-	position:fixed;
-	overflow:auto;
+	font-size: x-large;
+}
+.pagewindow{
+	border: 1px;
 }
 
 #members_index_command_buttons{

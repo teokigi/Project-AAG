@@ -1,9 +1,10 @@
 <h2 align = center> members index page </h2>
 <table border=1 align=center>
 <tr>
-<th colspan = 5> Members list</th>
+<th colspan = 6> Members list</th>
 </tr>
 <tr>
+<th> ID </td>
 <th> Account Type </th>
 <th> first name </th>
 <th> last name </th>
@@ -12,6 +13,7 @@
 <% if @members != nil %>
 <% 	for member in @members %>
 <tr class="member_table_row_contents">
+	<td class="member_table_data"> <%= member.id%> </td>
 	<td class="member_table_data"> <%= member.account_type%> </td>
 	<td class="member_table_data"> <%= member.first_name %> </td>
 	<td class="member_table_data"> <%= member.last_name %> </td>
@@ -35,7 +37,7 @@
 <% end %>
 <% else %>
 	<tr>
-		<td colspan = 5 align = center> no members currently registered </td>
+		<td colspan = 6 align = center> no members currently registered </td>
 	</tr>
 <% end %>
 </table>
@@ -55,3 +57,4 @@
 	</select>
 	<input type = "submit" value = "register">
 </form>
+<br>

@@ -58,7 +58,7 @@ INSERT INTO gym_classes (status,name) VALUES
 INSERT INTO sessions (gym_class_id,time_slot,maximum_bookings,available_bookings) VALUES
 	(1,'0900','3','2'),
 	(1,'1200','3','0'),
-	(1,'1600','4','4'),
+	(1,'1600','4','3'),
 	(2,'1000','5','4'),
 	(2,'1200','2','2'),
 	(2,'1600','3','2'),
