@@ -21,18 +21,10 @@
 	<td class="session_table_data"> <%= session.available_bookings %> </td>
 
 	<td id = "session_index_command_buttons">
-		<form action="/bookings/<%= session.id %>/index" method "GET">
-		<input type="submit" value="View">
 		</form>
 	    <form action="/sessions/<%= session.id %>/<%= @gym_class.id %>/delete" method="POST">
         <input type="submit" value="delete">
     	</form>
-		<form action="/sessions/<%= session.id %>/<%= @gym_class.id %>/toggle" method="POST">
-		<% if session.status == "active" %>
-			<input type="submit" value="deactivate">
-		<% else %>
-			<input type="submit" value="activate">
-		<% end %>
 		</form>
 	</td>
 </tr>
