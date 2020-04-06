@@ -12,24 +12,28 @@ class Booking
         #create
     def create()
         if availability_screening()
-            minus_1_availability()
-            sql = "INSERT INTO bookings
-            (
-                member_id,
-                session_id
-            )
-            VALUES
-            (
-            $1, $2
-            )
-            RETURNING *"
-            values =    [
-                            @member_id,
-                            @session_id
-                        ]
-            query = SqlRunner.run(sql, values).first
-            @id = query['id'].to_i
-            return Booking.new(query)
+            if time_slot_screening()
+                minus_1_availability()
+                sql = "INSERT INTO bookings
+                (
+                    member_id,
+                    session_id
+                )
+                VALUES
+                (
+                $1, $2
+                )
+                RETURNING *"
+                values =    [
+                                @member_id,
+                                @session_id
+                            ]
+                query = SqlRunner.run(sql, values).first
+                @id = query['id'].to_i
+                return Booking.new(query)
+            else
+                return "booking conflict, with time slot"
+            end
         else
             return "Session is full"
         end
@@ -117,5 +121,20 @@ class Booking
                 WHERE id = $1"
         values = [@session_id]
         SqlRunner.run(sql,values)
+    end
+
+    def time_slot_screening
+        sql = " SELECT time_slot FROM sessions
+                FULL JOIN bookings
+                ON bookings.session_id = sessions.id
+                WHERE member_id=$1;"
+        values = [@member_id]
+        query = SqlRunner.run(sql,values).map(&:time_slot)
+        for time in query
+            if @time_slot == time
+                return false
+            end
+        end
+        return true
     end
 end

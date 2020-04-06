@@ -39,8 +39,8 @@ body, html{
 	background-color:#4D4F55;
 	border-collapse:collapse;
 	background-image:url(006.jpg);
-	background-position:top;
-	background-size: 140% 140%;
+	background-position:bottom;
+	background-size: 160% 120%;
 	background-repeat:no-repeat;
 }
 .rightpane{
