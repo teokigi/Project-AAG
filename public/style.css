@@ -5,6 +5,8 @@
 #navigation{
 	display:flex;
 	justify-content: space-around;
+	position:fixed;
+	overflow:auto;
 }
 
 #members_index_command_buttons{

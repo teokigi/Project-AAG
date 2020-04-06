@@ -5,14 +5,15 @@
 <p>booking capacity: <%= @session.maximum_bookings %> </p>
 <p>available bookings: <%= @session.available_bookings %> </p>
 
-<%= @bookings%>
-<% if @bookings.length > 0 %>
-<p align=center> Current Active Bookings </p>
+<% if @bookings.length != 0 %>
+<h3 > Current Active Bookings </h3>
+<hr>
 	<% for booking in @bookings%>
 
 		Booking ID:<%= booking.id %><br>
 		Member ID: <%= booking.member_id %><br>
 		Member name: <%= Member.find_by_id(booking.member_id).fullname %><br>
+<hr>
 	<% end %>
 	<hr>
 	<p align=center>--- End of Listing ---</p>
