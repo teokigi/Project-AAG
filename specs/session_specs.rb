@@ -24,7 +24,6 @@ class SessionTest < Minitest::Test
 		test_session = @test_session.create
 		assert_equal('0900',test_session.find.time_slot)
 		assert(test_session.find.gym_class_id)
-		assert_equal('active',test_session.status)
 		assert_equal(30,test_session.maximum_bookings)
 		assert_equal(30,test_session.available_bookings)
 		@test_gym_class.delete
@@ -66,13 +65,11 @@ class SessionTest < Minitest::Test
 		test_session.time_slot = '1000'
 		test_session.maximum_bookings = 20
 		test_session.available_bookings = 10
-		test_session.status = 'inactive'
 		test_session.gym_class_id = test2_gym_class.id
 		test_session.update
 		assert_equal('1000',test_session.find.time_slot)
 		assert_equal(20,test_session.find.maximum_bookings)
 		assert_equal(10,test_session.find.available_bookings)
-		assert_equal('inactive',test_session.find.status)
 		assert_equal(test2_gym_class.id,test_session.find.gym_class_id)
 
 		@test_gym_class.delete
@@ -90,23 +87,7 @@ class SessionTest < Minitest::Test
 		test_session.delete
 	end
 
-	def test_006_deactivate_active_toggle_testing
-		test_session = Session.new({	'name'=>'Test',
-										'gym_class_id'=>@test_gym_class.id,
-										'time_slot'=>'0900',
-										'maximum_bookings'=>30})
-		test_session = test_session.create
-
-		test_session.toggle_status
-		assert_equal('inactive',test_session.find.status)
-		test_session.toggle_status
-		assert_equal('active',test_session.find.status)
-
-		test_session.delete
-		@test_gym_class.delete
-	end
-
-	def test_007_find_sessions_with_gym_class_id_testing
+	def test_006_find_sessions_with_gym_class_id_testing
 		before_length = Session.find_sessions_with_gym_class_id(@test_gym_class.id)
 		refute(before_length)
 		#method if returns nil should be set to 0, else count how many
@@ -127,7 +108,7 @@ class SessionTest < Minitest::Test
 		test_session.delete
 	end
 
-	def test_008_delete_by_id_testing
+	def test_007_delete_by_id_testing
 		#generates a new id assigning it to standard_member
 		test_session = @test_session.create
 		assert(test_session)
@@ -139,7 +120,7 @@ class SessionTest < Minitest::Test
 		@test_gym_class.delete
 	end
 
-	def test_009_find_by_id_testing
+	def test_008_find_by_id_testing
 		test_session = @test_session.create
 		id = test_session.id
 		assert_equal(id,Session.find_by_id(id).id)

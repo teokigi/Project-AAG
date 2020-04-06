@@ -6,8 +6,7 @@ class Session
 	attr_accessor 	:gym_class_id,
  					:time_slot,
  					:maximum_bookings,
- 					:available_bookings,
-					:status
+ 					:available_bookings
 
 	def initialize(options)
 		@id = options['id'] if options['id']
@@ -20,12 +19,6 @@ class Session
 		else
 			@available_bookings = options['available_bookings'].to_i
 		end
-
-		if !options['status']
-			@status = 'active'
-		else
-			@status = options['status']
-		end
 	end
 
 	def create()
@@ -34,18 +27,17 @@ class Session
             gym_class_id,
             maximum_bookings,
             time_slot,
-			available_bookings,
-			status
+			available_bookings
         )
         VALUES
         (
-        $1, $2, $3, $4, $5
+        $1, $2, $3, $4
         )
         RETURNING *"
         values = [  @gym_class_id,
                     @maximum_bookings,
                     @time_slot,
-					@available_bookings,@status]
+					@available_bookings]
         query = SqlRunner.run(sql, values).first
         @id = query['id'].to_i
         return Session.new(query)
@@ -88,11 +80,11 @@ class Session
 				SET (	gym_class_id,
 						maximum_bookings,
 						time_slot,
-						available_bookings,
-						status)
+						available_bookings
+					)
  				= ($1,$2,$3,$4,$5)
  				WHERE id = $6"
-        values = [@gym_class_id,@maximum_bookings,@time_slot,@available_bookings,@status,@id]
+        values = [@gym_class_id,@maximum_bookings,@time_slot,@available_bookings,,@id]
         SqlRunner.run(sql,values)
     end
 
@@ -108,15 +100,5 @@ class Session
         values = [id]
         query = SqlRunner.run(sql,values)
     end
-
-	def toggle_status
-		if @status == "active"
-			@status = "inactive"
-			update()
-		elsif @status == "inactive"
-			@status = "active"
-			update()
-		end
-	end
 
 end

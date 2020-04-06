@@ -2,40 +2,30 @@
 <hr>
 <table border=1 align=center>
 <tr>
-<th colspan = 5> Booking list</th>
+<th colspan = 4> Booking list</th>
 </tr>
 <tr>
 <th> ID </th>
 <th> Member ID </th>
 <th> Session ID </th>
 <th> Gym Class ID </th>
-<th> booking status </th>
 <th> commands </th>
 <% if @bookings != nil %>
 <% 	for booking in @bookings %>
 <tr class="booking_table_row_contents">
 	<td class="booking_table_data"> <%= booking.id%> </td>
 	<td class="booking_table_data"> <%= booking.member_id %> </td>
-	<td class="booking_table_data"> <%= @gym_class.name %> </td>
-	<td class="booking_table_data"> <%= @session.time_slot %> </td>
-	<td class="booking_table_data"> <%= booking.status %> </td>
+	<td class="booking_table_data"> <%= booking.session_id %> </td>
 	<td id = "booking_index_command_buttons">
-	    <form action="/bookings/<%= booking.id %>/<%= @session.id %>/delete" method="POST">
+	    <form action="/bookings/<%= booking.id %>/delete" method="POST">
         <input type="submit" value="delete" />
     	</form>
-		<form action="/bookings/<%= booking.id %>/<%= @session.id %>/toggle" method="POST">
-		<% if booking.status == "active" %>
-			<input type="submit" value="deactivate">
-		<% else %>
-			<input type="submit" value="activate">
-		<% end %>
-		</form>
 	</td>
 </tr>
 <% end %>
 <% else %>
 	<tr>
-		<td colspan = 5 align = center> no bookings currently registered </td>
+		<td colspan = 4 align = center> no bookings currently registered </td>
 	</tr>
 <% end %>
 </table>
@@ -44,18 +34,22 @@
 <h2 align=center>Register New Booking Form:</h2>
 <br>
 <form action = "/bookings" method="post" align = center>
-	<label for = "gym_class_id">Gym Class Name:</label>
-	<select name="gym_class_id">
-		<option value="<%= @gym_class.id %>"><%= @gym_class.name %></option>
-	</select>
-	<label for = "time_slot">Time Slot:</label>
+	<label for = "time_slot">Session ID:</label>
 	<select name="session_id">
-		<option value="<%= @session.id %>"><%= @session.time_slot %></option>
+	<% for gym_class in @gym_classes %>
+		<% for session in @sessions %>
+			<option value="<%= session.id %>"><%= gym_class.name at <%= session.time_slot %>hrs
+			</option>
+		<% end %>
+    <% end % >
 	</select>
-	<label for ="member_id">Member:</label>
+	<label for ="member_id">Member ID:</label>
 	<select name="member_id">
 		<% for member in @members %>
-		<option value="<%= member.id %>">ID:<%= member.id %>,Name:<%= member.first_name %> <%= member.last_name %></option>
+			<% if member.status == 'active' %>
+				<option value="<%= member.id %>"><%= member.id %></option>
+			<% elsif member.status == 'inactive' %>
+			<% end %>
 		<% end %>
 	</select>
 	<input type = "submit" value = "Generate">

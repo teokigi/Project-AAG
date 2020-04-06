@@ -1,45 +1,30 @@
 require_relative("../db/sqlrunner")
 
-#template find and replace
-# tablename = bookings
-# classname capitalize = Booking
-# first variable = status
-# second varible = session_id
-# third variable = member_id
-# code .to_i for relevant variables in initialize that are integers
-#line 32,79 references number of variables of your class. edit as appropriate
-#fill attr reader and attr accessor
 class Booking
-    attr_accessor :member_id, :session_id, :status
+    attr_accessor :member_id, :session_id
     attr_reader :id
         #initialize
     def initialize( options )
         @id = options['id'].to_i if options['id']
         @member_id = options['member_id'].to_i
         @session_id = options['session_id'].to_i
-
-		if options['status']
-        @status = options['status']
-		else
-		@status = 'active'
-		end
     end
         #create
     def create()
         sql = "INSERT INTO bookings
         (
             member_id,
-            session_id,
-            status
+            session_id
         )
         VALUES
         (
         $1, $2, $3
         )
         RETURNING *"
-        values = [  @member_id,
-                    @session_id,
-                    @status]
+        values =    [
+                        @member_id,
+                        @session_id
+                    ]
         query = SqlRunner.run(sql, values).first
         @id = query['id'].to_i
         return Booking.new(query)
@@ -68,12 +53,6 @@ class Booking
         return nil if query == nil
         return Booking.new(query)
     end
-        #update
-    def update()
-        sql = "UPDATE bookings SET (member_id,session_id,status) = ($1,$2,$3) WHERE id = $4"
-        values = [@member_id,@session_id,@status,@id]
-        SqlRunner.run(sql,values)
-    end
         #delete all
     def self.delete_all()
         sql = "DELETE FROM bookings"
@@ -86,15 +65,6 @@ class Booking
         SqlRunner.run(sql,values)
     end
 
-	def toggle_status
-		if @status == "active"
-			@status = "inactive"
-			update()
-		else
-			@status = "active"
-			update()
-		end
-	end
 		#delete by id
     def self.delete_by_id(id)
         sql = "DELETE FROM bookings WHERE id = $1"

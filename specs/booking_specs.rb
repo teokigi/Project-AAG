@@ -74,18 +74,6 @@ class BookingTest < Minitest::Test
 		@class01.delete
 	end
 
-	def test_004_update_testing
-		test_booking = @test_booking.create
-		test_booking.status = 'inactive'
-		test_booking.update
-		assert_equal('inactive',test_booking.find.status)
-
-		test_booking.delete
-		@test_session.delete
-		@standard_member01.delete
-		@class01.delete
-	end
-
 	def test_005_delete_testing
 		test_booking = @test_booking.create
 		assert(test_booking.find)
