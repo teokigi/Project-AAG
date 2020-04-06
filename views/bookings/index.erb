@@ -46,14 +46,12 @@
 <br>
 <form action = "/bookings" method="post" align = center>
 	<label for = "time_slot">Session ID:</label>
-	<select name="session_id">
+	<select name="gym_class_id">
 	<% for gym_class in @gym_classes %>
-		<% sessions = @sessions.keep_if{|v| v.gym_class_id == gym_class.id} %>
-		<% if sessions.length !=0 %>
-			<% for session in sessions %>
-				<option value="<%= session.id %>"><%= gym_class.name %> at <%= session.time_slot %>hrs
+		<% if gym_class.status == 'active' %>
+				<option value="<%= gym_class.id %>"><%= gym_class.id %>:<%= gym_class.name %>
 				</option>
-			<% end %>
+		<% elsif gym_class.status == 'inactive' %>
 		<% end %>
     <% end %>
 	</select>
