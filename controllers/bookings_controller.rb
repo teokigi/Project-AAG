@@ -13,3 +13,9 @@ get '/bookings/:session_id/index' do
 	@bookings = Booking.find_bookings_with_session_id(params['session_id'].to_i)
 	erb(:"/bookings/index")
 end
+
+post '/bookings' do
+	new_session = Booking.new(@params)
+	new_session.create
+	redirect to("/bookings/#{@params['session_id']}/index")
+end
