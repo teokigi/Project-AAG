@@ -1,12 +1,13 @@
 <h2 align=center> Gym Classes Index Page </h2>
 <table border=1 align=center>
 <tr>
-<th colspan = 4> Gym Class list</th>
+<th colspan = 5> Gym Class list</th>
 </tr>
 <tr>
 <th> ID </th>
 <th> Status </th>
 <th> Name </th>
+<th> time slot(s) </th>
 <th> Commands </th>
 <% if @classes != nil %>
 <% 	for gym_class in @classes %>
@@ -14,10 +15,14 @@
 	<td class="gym_class_table_data"> <%= gym_class.id%> </td>
 	<td class="gym_class_table_data"> <%= gym_class.name %> </td>
 	<td class="gym_class_table_data"> <%= gym_class.status %> </td>
+	<td class="gym_class_table_data">
+		<% for session in @sessions %>
+			<% if session.gym_class_id == gym_class.id%>
+			<%= session.time_slot %>hrs,
+			<% end%>
+		<% end%>
+	</td>
 	<td id = "gym_class_index_command_buttons">
-		<form action="/sessions/<%= gym_class.id %>/index" method "GET">
-		<input type="submit" value="View">
-		</form>
 	    <form action="/gym_classes/<%= gym_class.id %>/delete" method="POST">
         <input type="submit" value="delete" />
     	</form>
@@ -33,16 +38,89 @@
 <% end %>
 <% else %>
 	<tr>
-		<td colspan = 4 align = center> no gym classs currently registered </td>
+		<td colspan = 5 align = center> no gym classs currently registered </td>
 	</tr>
 <% end %>
 </table>
 <hr>
 
-<h2 align=center>Register New gym_class form:</h2>
+<h2 align=center>Register New Class form:</h2>
 <br>
 <form action = "/gym_classes" method="post" align = center>
 	<label for = "name">Gym Class Name:</label>
 	<input type = "text" id="gym_name" name="name">
 	<input type = "submit" value = "Generate">
 </form>
+<hr>
+<h2 align=center>Add New Time Slot for Gym Class </h2>
+<% if @classes != nil %>
+<form action = "/sessions" method="post" align=center>
+	<label for = "gym_class_id">Class:</label>
+	<select name="gym_class_id">
+		<% 	for gym_class in @classes %>
+			<% if gym_class.status == "active" %>
+			<option value="<%= gym_class.id %>">
+				<%= gym_class.id %>:<%= gym_class.name %>
+			</option>
+			<% end %>
+		<% end %>
+	</select>
+	<label for="time_slot">Time:</label>
+	<select name="time_slot">
+		<option value="0500"> 0500hrs </option>
+		<option value="0600"> 0600hrs </option>
+		<option value="0700"> 0700hrs </option>
+		<option value="0800"> 0800hrs </option>
+		<option value="0900" default> 0900hrs </option>
+		<option value="1000"> 1000hrs </option>
+		<option value="1100"> 1100hrs </option>
+		<option value="1200"> 1200hrs </option>
+		<option value="1300"> 1300hrs </option>
+		<option value="1400"> 1400hrs </option>
+		<option value="1500"> 1500hrs </option>
+		<option value="1600"> 1600hrs </option>
+		<option value="1700"> 1700hrs </option>
+		<option value="1800"> 1800hrs </option>
+		<option value="1900"> 1900hrs </option>
+		<option value="2000"> 2000hrs </option>
+		<option value="2100"> 2100hrs </option>
+		<option value="2200"> 2200hrs </option>
+		<option value="2300"> 2300hrs </option>
+	</select>
+	<label for="maximum_bookings">Maximum Bookings:</label>
+	<select name="maximum_bookings">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5" default>5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+		<option value="13">13</option>
+		<option value="14">14</option>
+		<option value="15">15</option>
+		<option value="16">16</option>
+		<option value="17">17</option>
+		<option value="18">18</option>
+		<option value="19">19</option>
+		<option value="20">20</option>
+		<option value="21">21</option>
+		<option value="22">22</option>
+		<option value="23">23</option>
+		<option value="24">24</option>
+		<option value="25">25</option>
+		<option value="26">26</option>
+		<option value="27">27</option>
+		<option value="28">28</option>
+		<option value="29">29</option>
+		<option value="30">30</option>
+	</select>
+		<input type="submit" value="Append time slot to gym class">
+<% else %>
+	Need to Generate a Gym Class before Gym Time Sessions can be allotted.
+<% end %>
