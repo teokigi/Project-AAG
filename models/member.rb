@@ -108,7 +108,7 @@ class Member
 		end
 	end
 		#return full name
-	def full_name
+	def fullname
 		members_full_name = "#{@first_name} #{@last_name}"
 		return members_full_name
 	end
