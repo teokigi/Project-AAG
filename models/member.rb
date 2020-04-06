@@ -92,16 +92,25 @@ class Member
 		values = [@status,@first_name,@last_name,@account_type,@id]
 		SqlRunner.run(sql,values)
 	end
-
+	#toggle active and inactive
 	def toggle_status
-		if @status == "active"
-			@status = "inactive"
-			update()
-		else
-			@status = "active"
-			update()
+		case @status
+			when "active"
+				@status = "inactive"
+				update()
+				return "success - updated"
+			when "inactive"
+				@status = "active"
+				update()
+				return "success - updated"
+			else
+			return "Error - status is currently invalid"
 		end
 	end
-
+		#return full name
+	def full_name
+		members_full_name = "#{@first_name} #{@last_name}"
+		return members_full_name
+	end
 
 end
