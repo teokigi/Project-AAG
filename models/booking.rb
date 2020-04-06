@@ -11,23 +11,29 @@ class Booking
     end
         #create
     def create()
-        sql = "INSERT INTO bookings
-        (
-            member_id,
-            session_id
-        )
-        VALUES
-        (
-        $1, $2, $3
-        )
-        RETURNING *"
-        values =    [
-                        @member_id,
-                        @session_id
-                    ]
-        query = SqlRunner.run(sql, values).first
-        @id = query['id'].to_i
-        return Booking.new(query)
+        if availability_screening()
+            minus_1_availability()
+            sql = "INSERT INTO bookings
+            (
+                member_id,
+                session_id
+            )
+            VALUES
+            (
+            $1, $2, $3
+            )
+            RETURNING *"
+            values =    [
+                            @member_id,
+                            @session_id
+                        ]
+            query = SqlRunner.run(sql, values).first
+            @id = query['id'].to_i
+            return Booking.new(query)
+        else
+            return "Session is full"
+        end
+
     end
         #read all
     def self.find_all()
@@ -63,6 +69,7 @@ class Booking
         sql = "DELETE FROM bookings WHERE id = $1"
         values = [@id]
         SqlRunner.run(sql,values)
+        plus_1_availability()
     end
 
 		#delete by id
@@ -80,4 +87,35 @@ class Booking
         return self.new(query)
     end
 
+    def availability_screening()
+        sql = " SELECT available_bookings
+                FROM sessions
+                WHERE id = $1"
+        values = [@session_id]
+        query = SqlRunner.run(sql,values).first()
+        if query['available_bookings'] == "0"
+            return false
+        else
+            return true
+        end
+        return query
+    end
+
+    def minus_1_availability()
+        sql =  "UPDATE sessions
+                SET (available_bookings)
+                = (available_bookings - 1)
+                WHERE id = $1"
+        values = [session_id]
+        SqlRunner.run(sql,values)
+    end
+
+    def plus_1_availability()
+        sql =  "UPDATE sessions
+                SET (available_bookings)
+                = (available_bookings + 1)
+                WHERE id = $1"
+        values = [session_id]
+        SqlRunner.run(sql,values)
+    end
 end

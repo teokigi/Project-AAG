@@ -21,7 +21,7 @@ CREATE TABLE sessions(
 	gym_class_id INT REFERENCES gym_classes(id) ON DELETE CASCADE,
 	time_slot VARCHAR(255),
 	maximum_bookings INT,
-	Available_bookings INT
+	available_bookings INT
 );
 
 CREATE TABLE bookings(
