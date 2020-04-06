@@ -82,12 +82,11 @@ class Session
 						time_slot,
 						available_bookings
 					)
- 				= ($1,$2,$3,$4,$5)
- 				WHERE id = $6"
+ 				= ($1,$2,$3,$4)
+ 				WHERE id = $5"
         values = [@gym_class_id,@maximum_bookings,@time_slot,@available_bookings,@id]
         SqlRunner.run(sql,values)
     end
-
         #delete entry with matching id
     def delete()
         sql = "DELETE FROM sessions WHERE id = $1"

@@ -111,5 +111,6 @@ class Membertest < Minitest::Test
 	def test_009_fullname_testing
 		standard_member = @standard_member01.create
 		assert_equal('Test Seed',standard_member.fullname)
+		standard_member.delete
 	end
 end

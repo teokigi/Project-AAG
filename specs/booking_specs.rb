@@ -147,9 +147,9 @@ class BookingTest < Minitest::Test
 	end
 
 	def test_010_minus_1_availability_test
-		before_availability = @test_session.available_bookings
+		before_availability = @test_session.find.available_bookings
 		test_booking = @test_booking.create
-		after_availability = @test_session.availabile_bookings
+		after_availability = @test_session.find.available_bookings
 		change_in_length = after_availability - before_availability
 		assert_equal(-1,change_in_length)
 		test_booking.delete
@@ -160,9 +160,9 @@ class BookingTest < Minitest::Test
 
 	def test_011_plus_1_availability_test
 			test_booking = @test_booking.create
-			before_availability = @test_session.availabile_bookings
+			before_availability = @test_session.find.available_bookings
 			test_booking.delete
-			after_availability = @test_session.available_bookings
+			after_availability = @test_session.find.available_bookings
 			change_in_length = after_availability - before_availability
 			assert_equal(1,change_in_length)
 			@test_session.delete

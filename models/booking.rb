@@ -20,7 +20,7 @@ class Booking
             )
             VALUES
             (
-            $1, $2, $3
+            $1, $2
             )
             RETURNING *"
             values =    [
@@ -103,19 +103,19 @@ class Booking
 
     def minus_1_availability()
         sql =  "UPDATE sessions
-                SET (available_bookings)
-                = (available_bookings - 1)
+                SET available_bookings
+                = available_bookings - 1
                 WHERE id = $1"
-        values = [session_id]
+        values = [@session_id]
         SqlRunner.run(sql,values)
     end
 
     def plus_1_availability()
         sql =  "UPDATE sessions
-                SET (available_bookings)
-                = (available_bookings + 1)
+                SET available_bookings
+                = available_bookings + 1
                 WHERE id = $1"
-        values = [session_id]
+        values = [@session_id]
         SqlRunner.run(sql,values)
     end
 end
