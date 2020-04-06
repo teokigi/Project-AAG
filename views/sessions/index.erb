@@ -10,7 +10,7 @@
 <hr>
 	<% for booking in @bookings%>
 
-		Booking ID:<%= booking.id %><br>
+		Booking ID: <%= booking.id %><br>
 		Member ID: <%= booking.member_id %><br>
 		Member name: <%= Member.find_by_id(booking.member_id).fullname %><br>
 <hr>

@@ -3,6 +3,10 @@ body, html{
 	height:100%;
 	margin:0;
 	background-color:#CCCCCC;
+	background-image:url(003.jpg);
+	background-position:top;
+	background-repeat:no-repeat;
+	background-size: 100% 35%;
 }
 
 .container{
@@ -14,6 +18,7 @@ body, html{
 	height:90px;
 	border-collapse:collapse;
 	background-colour: #4D4F55;
+	test-decoration:none;
 }
 .middlepane{
 	width:70%;
@@ -22,6 +27,10 @@ body, html{
 	background-color: white;
 	border-collapse:collapse;
 	overflow:scroll;
+	background-image:url(004.jpg);
+	background-position:left top;
+	background-size:100% 150%;
+	background-repeat:no-repeat;
 }
 .leftpane{
  	width:15%;
@@ -29,6 +38,10 @@ body, html{
 	float:left;
 	background-color:#4D4F55;
 	border-collapse:collapse;
+	background-image:url(006.jpg);
+	background-position:top;
+	background-size: 140% 140%;
+	background-repeat:no-repeat;
 }
 .rightpane{
 	width:15%;
@@ -36,15 +49,42 @@ body, html{
 	float:right;
 	background-color:#4D4F55;
 	border-collapse:collapse;
+	background-image:url(009.jpg);
+	background-repeat:no-repeat;
+	background-size: 150% 100%;
+	background-position:bottom;
 }
 #layout_heading{
 	display:flex;
 	justify-content:center;
 }
+#layout_heading a{
+	color:white;
+	text-decoration:none;
+	font-family:fantasy;
+}
+#layout_heading a:hover{
+	background-color:blue;
+}
+#layout_heading a:visited{
+	color:white;
+}
 #navigation{
 	display:flex;
 	justify-content: space-around;
 	font-size: x-large;
+	background-color: royalblue;
+}
+#navigation a{
+	text-decoration:none;
+	font-family:monospace;
+}
+#navigation a:hover{
+	background-color:white;
+	text-decoration-color:yellow;
+}
+#navigation a:visited{
+	color:inherit;
 }
 .pagewindow{
 	border: 1px;
