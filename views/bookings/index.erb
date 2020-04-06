@@ -45,17 +45,21 @@
 <h2 align=center>Register New Booking Form:</h2>
 <br>
 <form action = "/bookings" method="post" align = center>
-	<label for = "time_slot">Session ID:</label>
-	<select name="gym_class_id">
+	<label for = "session_id">Session ID:</label>
+	<select name="session_id">
 	<% for gym_class in @gym_classes %>
 		<% if gym_class.status == 'active' %>
-				<option value="<%= gym_class.id %>"><%= gym_class.id %>:<%= gym_class.name %>
-				</option>
+				<% for session in @sessions %>
+					<% if gym_class.id == session.gym_class_id %>
+						<option value="<%= session.id %>">
+							Gym ID:<%= gym_class.id %>-<%= gym_class.name %>, Time Slot:<%= session.time_slot%>
+						</option>
+					<% end %>
+				<% end %>
 		<% elsif gym_class.status == 'inactive' %>
 		<% end %>
     <% end %>
 	</select>
-	<label for ="session_id">Session time:</label>
 	<label for ="member_id">member ID:</label>
 	<select name="member_id">
 		<% for member in @members %>
