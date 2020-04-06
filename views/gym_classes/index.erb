@@ -18,7 +18,7 @@
 	<td class="gym_class_table_data">
 		<% for session in @sessions %>
 			<% if session.gym_class_id == gym_class.id%>
-			<%= session.time_slot %>hrs,
+				<a href="/session/<%= session.id %>" alt="<%=session.time_slot%>"><%= session.time_slot %>hrs</a>,
 			<% end%>
 		<% end%>
 	</td>

@@ -1,72 +1,22 @@
-<h2 align=center> Sessions index page </h2>
-<table border=1 align=center>
-<tr>
-<th colspan = 6> Sessions list for "<%= @gym_class.name %>"</th>
-</tr>
-<tr>
-<th> ID </th>
-<th> Status </th>
-<th> time slot </th>
-<th> max bookings </th>
-<th> available bookings </th>
-<th> Commands </th>
-</tr>
-<% if @sessions != nil %>
-<% 	for session in @sessions %>
-<tr class="session_table_row_contents">
-	<td class="session_table_data"> <%= session.id%> </td>
-	<td class="session_table_data"> <%= session.status %> </td>
-	<td class="session_table_data"> <%= session.time_slot %> </td>
-	<td class="session_table_data"> <%= session.maximum_bookings %> </td>
-	<td class="session_table_data"> <%= session.available_bookings %> </td>
+<h2 align=center> Session page </h2>
 
-	<td id = "session_index_command_buttons">
-		</form>
-	    <form action="/sessions/<%= session.id %>/<%= @gym_class.id %>/delete" method="POST">
-        <input type="submit" value="delete">
-    	</form>
-		</form>
-	</td>
-</tr>
-<% end %>
+<h3>Class:'<%= @gym_class.name %>' Time Slot:<%= @session.time_slot %>hrs</h3>
+
+<p>booking capacity: <%= @session.maximum_bookings %> </p>
+<p>available bookings: <%= @session.available_bookings %> </p>
+
+<%= @bookings%>
+<% if @bookings.length > 0 %>
+<p align=center> Current Active Bookings </p>
+	<% for booking in @bookings%>
+
+		Booking ID:<%= booking.id %><br>
+		Member ID: <%= booking.member_id %><br>
+		Member name: <%= Member.find_by_id(booking.member_id).fullname %><br>
+	<% end %>
+	<hr>
+	<p align=center>--- End of Listing ---</p>
 <% else %>
-	<tr>
-		<td colspan=6 align = center> no sessions currently registered </td>
-	</tr>
-<% end %>
-</table>
-<hr>
+<p>This Session has no bookings</p>
 
-<h2 align=center>Register New session form:</h2>
-<br>
-<form action = "/sessions" method="post" align = center>
-	<label for = "name">Gym Class ID:</label>
-	<select name="gym_class_id">
-		<option value="<%= @gym_class.id %>" default><%= @gym_class.id %></option>
-	</select>
-	<label for="time_slot">Time Slot:</label>
-	<select name="time_slot">
-		<option value="0500" default>5:00am </option>
-		<option value="0600" >6:00am </option>
-		<option value="0700" >7:00am </option>
-		<option value="0800" >8:00am </option>
-		<option value="0900" >9:00am </option>
-		<option value="1000" >10:00am </option>
-		<option value="1100" >11:00am </option>
-		<option value="1200" >12:00am </option>
-		<option value="1300" >1:00pm </option>
-		<option value="1400" >2:00pm </option>
-		<option value="1500" >3:00pm </option>
-		<option value="1600" >4:00pm </option>
-		<option value="1700" >5:00pm </option>
-		<option value="1800" >6:00pm </option>
-		<option value="1900" >7:00pm </option>
-		<option value="2000" >8:00pm </option>
-		<option value="2100" >9:00pm </option>
-		<option value="2200" >10:00pm </option>
-		<option value="2300" >11:00pm </option>
-	</select>
-	<label for="maximum_bookings">Max Bookings(5-30)</label>
-	<input type = "number" name="maximum_bookings" min="5" max="30">
-	<input type = "submit" value = "Add time slot to Gym Class">
-</form>
+<% end %>
