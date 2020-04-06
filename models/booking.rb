@@ -95,5 +95,11 @@ class Booking
 			update()
 		end
 	end
+		#delete by id
+    def self.delete_by_id(id)
+        sql = "DELETE FROM bookings WHERE id = $1"
+        values = [id]
+        query = SqlRunner.run(sql,values)
+    end
 
 end

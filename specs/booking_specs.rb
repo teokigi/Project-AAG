@@ -118,4 +118,17 @@ class BookingTest < Minitest::Test
 		@class01.delete
 	end
 
+	def test_007_delete_by_id_testing
+		#generates a new id assigning it to standard_member
+		test_booking = @test_booking.create
+		assert(test_booking)
+		id = test_booking.id
+		#deletes table entry where id matches standard_member
+		Booking.delete_by_id(id)
+		#finding standard_member should return nil
+		refute(test_booking.find)
+		@test_session.delete
+		@standard_member01.delete
+		@class01.delete
+	end
 end

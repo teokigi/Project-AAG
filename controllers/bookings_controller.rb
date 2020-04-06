@@ -19,3 +19,8 @@ post '/bookings' do
 	new_session.create
 	redirect to("/bookings/#{@params['session_id']}/index")
 end
+
+post '/bookings/:booking_id/:session_id/delete' do
+	Booking.delete_by_id(params['booking_id'].to_i)
+	redirect to("/sessions/#{params['session_id']}/index")
+end
