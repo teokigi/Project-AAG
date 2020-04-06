@@ -131,4 +131,16 @@ class BookingTest < Minitest::Test
 		@standard_member01.delete
 		@class01.delete
 	end
+
+	def test_008_find_by_id_testing
+		test_booking = @test_booking.create
+		id = test_booking.id
+		assert_equal(id,Booking.find_by_id(id).id)
+		#removes test seed
+		test_booking.delete
+		@test_session.delete
+		@standard_member01.delete
+		@class01.delete
+	end
+
 end

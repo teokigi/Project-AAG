@@ -101,5 +101,13 @@ class Booking
         values = [id]
         query = SqlRunner.run(sql,values)
     end
+        #find by id
+    def self.find_by_id(id)
+        sql = "SELECT * FROM bookings WHERE id = $1"
+        values = [id]
+        query = SqlRunner.run(sql,values).first()
+        return nil if query.first == nil
+        return self.new(query)
+    end
 
 end
