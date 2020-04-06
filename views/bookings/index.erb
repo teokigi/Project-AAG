@@ -1,22 +1,33 @@
-<h2 align=center> Booking Index Page </h2>
-<hr>
+<h2 align=center> Booking Listings Page </h2>
 <table border=1 align=center>
 <tr>
-<th colspan = 4> Booking list</th>
+<th colspan = 8> Booking list</th>
 </tr>
 <tr>
-<th> ID </th>
+<th> Booking ID </th>
 <th> Member ID </th>
-<th> Session ID </th>
+<th> Member Name </th>
 <th> Gym Class ID </th>
+<th> Gym Class Name </th>
+<th> Session ID </th>
+<th> time slot </th>
 <th> commands </th>
 <% if @bookings != nil %>
 <% 	for booking in @bookings %>
 <tr class="booking_table_row_contents">
 	<td class="booking_table_data"> <%= booking.id%> </td>
 	<td class="booking_table_data"> <%= booking.member_id %> </td>
+	<td class="booking_table_data"> <%= Member.find_by_id(booking.member_id).fullname %> </td>
+	<td class="booking_table_data">
+ 	<%= GymClass.find_by_id(Session.find_by_id(booking.session_id).gym_class_id).id %>
+ 	</td>
+	<td class="booking_table_data">
+	<%= GymClass.find_by_id(Session.find_by_id(booking.session_id).gym_class_id).name %>
+	</td>
 	<td class="booking_table_data"> <%= booking.session_id %> </td>
+	<td class="booking_table_data"> <%= Session.find_by_id(booking.session_id).time_slot %> </td>
 	<td id = "booking_index_command_buttons">
+
 	    <form action="/bookings/<%= booking.id %>/delete" method="POST">
         <input type="submit" value="delete" />
     	</form>
@@ -25,7 +36,7 @@
 <% end %>
 <% else %>
 	<tr>
-		<td colspan = 4 align = center> no bookings currently registered </td>
+		<td colspan = 8 align = center> no bookings currently registered </td>
 	</tr>
 <% end %>
 </table>
@@ -37,17 +48,20 @@
 	<label for = "time_slot">Session ID:</label>
 	<select name="session_id">
 	<% for gym_class in @gym_classes %>
-		<% for session in @sessions %>
-			<option value="<%= session.id %>"><%= gym_class.name at <%= session.time_slot %>hrs
-			</option>
+		<% sessions = @sessions.keep_if{|v| v.gym_class_id == gym_class.id} %>
+		<% if sessions.length !=0 %>
+			<% for session in sessions %>
+				<option value="<%= session.id %>"><%= gym_class.name %> at <%= session.time_slot %>hrs
+				</option>
+			<% end %>
 		<% end %>
-    <% end % >
+    <% end %>
 	</select>
-	<label for ="member_id">Member ID:</label>
+	<label for ="member_id">member ID:</label>
 	<select name="member_id">
 		<% for member in @members %>
 			<% if member.status == 'active' %>
-				<option value="<%= member.id %>"><%= member.id %></option>
+				<option value="<%= member.id %>"><%= member.id %> <%= member.fullname %></option>
 			<% elsif member.status == 'inactive' %>
 			<% end %>
 		<% end %>
