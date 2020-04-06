@@ -25,6 +25,7 @@ class BookingTest < Minitest::Test
 		@test_session = @test_session.create
 		@test_booking = Booking.new({	'session_id'=>@test_session.id,
 										'member_id'=>@standard_member01.id})
+
 	end
 
 	def test_001_save_testing
@@ -170,4 +171,24 @@ class BookingTest < Minitest::Test
 			@class01.delete
 	end
 
+	def test_012_screen_time_slot
+		#create a booking, important point being member and time slot
+		test_booking = @test_booking.create
+		#make a new gym class, with similar 0900 time slot
+		class02 = GymClass.new({'name'=>'Test2'}).create
+		test2_session = Session.new({ 'gym_class_id'=>class02.id,
+								'time_slot'=>'0900',
+								'maximum_bookings'=>20}).create
+		#run a second booking attempt with the same member and same time slot
+		test2_booking = Booking.new({	'session_id'=>test2_session.id,
+										'member_id'=>@standard_member01.id}).create
+		#should return a string without saving data
+		assert_equal("booking conflict, with time slot",test2_booking)
+		test_booking.delete
+		@test_session.delete
+		test2_session.delete
+		@standard_member01.delete
+		@class01.delete
+		class02.delete
+	end
 end

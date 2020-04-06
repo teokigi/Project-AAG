@@ -1,3 +1,4 @@
+require_relative("../models/session")
 require_relative("../db/sqlrunner")
 
 class Booking
@@ -124,17 +125,29 @@ class Booking
     end
 
     def time_slot_screening
+        sql = " SELECT * FROM sessions
+                WHERE id=$1;"
+        values = [@session_id]
+        query = SqlRunner.run(sql,values).first
+        query = query['time_slot']
+        query2 = sessions_by_member()
+        for each_value in query2
+            if query == each_value
+                return false
+            else
+                return true
+            end
+        end
+    end
+
+    def sessions_by_member()
         sql = " SELECT time_slot FROM sessions
                 FULL JOIN bookings
                 ON bookings.session_id = sessions.id
                 WHERE member_id=$1;"
-        values = [@member_id]
-        query = SqlRunner.run(sql,values).map(&:time_slot)
-        for time in query
-            if @time_slot == time
-                return false
-            end
-        end
-        return true
+        values=[@member_id]
+        query = SqlRunner.run(sql,values)
+        query = query.map{|v| v['time_slot']}
+        return query
     end
 end
