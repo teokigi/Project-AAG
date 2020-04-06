@@ -27,10 +27,10 @@ body, html{
 	background-color: white;
 	border-collapse:collapse;
 	overflow:scroll;
-	background-image:url(004.jpg);
+	/* background-image:url(004.jpg);
 	background-position:left top;
 	background-size:100% 150%;
-	background-repeat:no-repeat;
+	background-repeat:no-repeat; */
 }
 .leftpane{
  	width:15%;

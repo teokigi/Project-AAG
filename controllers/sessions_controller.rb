@@ -4,7 +4,6 @@ require_relative('../models/session.rb')
 require_relative('../models/gym_class.rb')
 require_relative('../models/member.rb')
 require_relative('../models/booking.rb')
-also_reload( '../models/*' )
 
 get '/session/:session_id' do
 	@session = Session.find_by_id(params['session_id'].to_i)
