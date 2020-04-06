@@ -70,5 +70,10 @@
 		<% end %>
 	</select>
 	<input type = "submit" value = "Generate">
+	<% if @new_booking == "booking conflict, with time slot" %>
+		<p class = "errormessage">booking conflict, with time slot</p>
+	<% elsif @new_booking == "session is full" %>
+		<p class = "errormessage">Session is full</p>
+	<% end %>
 </form>
 <br>

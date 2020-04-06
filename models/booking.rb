@@ -36,7 +36,7 @@ class Booking
                 return "booking conflict, with time slot"
             end
         else
-            return "Session is full"
+            return "session is full"
         end
 
     end

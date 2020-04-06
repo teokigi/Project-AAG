@@ -14,18 +14,16 @@ get '/bookings' do
 end
 
 post '/bookings' do
-	new_session = Booking.new(@params)
-	new_session.create
-	redirect to("/bookings/#{@params['session_id']}/index")
+	@new_booking = Booking.new(@params).create
+	@bookings = Booking.find_all
+	@members = Member.find_all
+	@gym_classes = GymClass.find_all
+	@sessions = Session.find_all
+	# redirect to("/bookings")
+	erb(:"/bookings/index")
 end
 
 post '/bookings/:booking_id/:session_id/delete' do
 	Booking.delete_by_id(params['booking_id'].to_i)
-	redirect to("/bookings/#{params['session_id']}/index")
-end
-
-post '/bookings/:booking_id/:session_id/toggle' do
-	toggling_class = Booking.find_by_id(params['booking_id'].to_i)
-	toggling_class.toggle_status
 	redirect to("/bookings/#{params['session_id']}/index")
 end
