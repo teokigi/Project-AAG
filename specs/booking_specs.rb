@@ -13,7 +13,7 @@ Minitest::Reporters::SpecReporter.new
 class BookingTest < Minitest::Test
 
 	def setup
-		@standard_member01 = Member.new({	'first_name'=>'Test',
+		@standard_member01 = Member.new({'first_name'=>'Test',
 									'last_name'=>'Seed',
 									'account_type'=>'Standard'})
 		@standard_member01 = @standard_member01.create
@@ -21,7 +21,7 @@ class BookingTest < Minitest::Test
 		@class01 = @class01.create
 		@test_session = Session.new({	'gym_class_id'=>@class01.id,
 										'time_slot'=>'0900',
-										'maximum_bookings'=>30})
+										'maximum_bookings'=>1})
 		@test_session = @test_session.create
 		@test_booking = Booking.new({	'session_id'=>@test_session.id,
 										'member_id'=>@standard_member01.id})
@@ -129,6 +129,45 @@ class BookingTest < Minitest::Test
 		@test_session.delete
 		@standard_member01.delete
 		@class01.delete
+	end
+
+	def test_009_availability_screening_test
+
+		before_length = Booking.find_all.length
+		test_booking = @test_booking.create
+		midway_length = Booking.find_all.length
+		assert_equal(1,midway_length - before_length)
+		test2_booking = @test_booking.create
+		final_length = Booking.find_all.length
+		assert_equal(0,final_length - midway_length)
+		test_booking.delete
+		@test_session.delete
+		@standard_member01.delete
+		@class01.delete
+	end
+
+	def test_010_minus_1_availability_test
+		before_availability = @test_session.available_bookings
+		test_booking = @test_booking.create
+		after_availability = @test_session.availabile_bookings
+		change_in_length = after_availability - before_availability
+		assert_equal(-1,change_in_length)
+		test_booking.delete
+		@test_session.delete
+		@standard_member01.delete
+		@class01.delete
+	end
+
+	def test_011_plus_1_availability_test
+			test_booking = @test_booking.create
+			before_availability = @test_session.availabile_bookings
+			test_booking.delete
+			after_availability = @test_session.available_bookings
+			change_in_length = after_availability - before_availability
+			assert_equal(1,change_in_length)
+			@test_session.delete
+			@standard_member01.delete
+			@class01.delete
 	end
 
 end

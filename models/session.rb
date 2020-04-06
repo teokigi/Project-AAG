@@ -84,7 +84,7 @@ class Session
 					)
  				= ($1,$2,$3,$4,$5)
  				WHERE id = $6"
-        values = [@gym_class_id,@maximum_bookings,@time_slot,@available_bookings,,@id]
+        values = [@gym_class_id,@maximum_bookings,@time_slot,@available_bookings,@id]
         SqlRunner.run(sql,values)
     end
 
