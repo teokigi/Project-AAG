@@ -7,15 +7,15 @@ get '/members' do
 	erb( :"members/index" )
 end
 
-get '/members/:member_id/view' do
-	@member = Member.find_by_id(@params['member_id'].to_i)
-	erb( :"/members/view")
-end
-
 post '/members' do
 	new_member = Member.new(params)
 	new_member.create
 	redirect to("/members")
+end
+
+get '/members/:member_id/view' do
+	@member = Member.find_by_id(@params['member_id'].to_i)
+	erb( :"/members/view")
 end
 
 post '/members/:member_id/delete' do
