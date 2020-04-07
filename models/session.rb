@@ -89,6 +89,11 @@ class Session
     end
         #delete entry with matching id
     def delete()
+		#function requires a string stored in a variable that carries out a SQL command to delete
+		# from the sessions table where the unique identifier will be the id from the session class object.
+		#use the class method run from class SqlRunner passing through 2 arguments, one containing
+		#the sql commands in string form, and the other. the unique identifier id contained the
+		# in the class object session that is being passed to this delete method.
         sql = "DELETE FROM sessions WHERE id = $1"
         values = [@id]
         SqlRunner.run(sql,values)
