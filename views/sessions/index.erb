@@ -1,7 +1,10 @@
+<div class="sessionclassbody">
 <h2 align=center> Session page </h2>
 
-<h3>Class:'<%= @gym_class.name %>' Time Slot:<%= @session.time_slot %>hrs</h3>
+<h3>---  Session Information ---</h3>
 
+<p>Class:'<%= @gym_class.name %>'</p>
+<p>Time Slot:<%= @session.time_slot %>hrs</p>
 <p>booking capacity: <%= @session.maximum_bookings %> </p>
 <p>available bookings: <%= @session.available_bookings %> </p>
 
@@ -9,10 +12,12 @@
 <h3 > Current Active Bookings </h3>
 <hr>
 	<% for booking in @bookings%>
-
-		Booking ID: <%= booking.id %><br>
-		Member ID: <%= booking.member_id %><br>
-		Member name: <%= Member.find_by_id(booking.member_id).fullname %><br>
+		<h3>--- Booking Information: ---</h3>
+		<p>Booking ID: <%= booking.id %></p>
+		<h3>--- Member Information: ---</h2>
+		<p>ID: <%= booking.member_id %></p>
+		<p>name: <%= Member.find_by_id(booking.member_id).fullname %></p>
+		<p>Account Type: <%= Member.find_by_id(booking.member_id).account_type %> </p>
 <hr>
 	<% end %>
 	<hr>
@@ -21,4 +26,9 @@
 <p>This Session has no bookings</p>
 
 <% end %>
+
+<form action="/sessions/<%=@session.id%>/delete" method="POST">
+	<input type="Submit" Value="Click Here To Delete this Session">
+</form>
 <br>
+</div>

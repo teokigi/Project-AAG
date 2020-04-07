@@ -1,3 +1,4 @@
+<div class="universalclassbody">
 <h2 align = center> members index page </h2>
 <table border=1 align=center>
 <tr>
@@ -44,17 +45,16 @@
 <hr>
 
 <h2 align=center>Register New member form:</h2>
-<br>
-<form action = "/members" method="post" align = center>
-	<label for = "first_name">First name:</label>
-	<input type = "text" id="fname" name="first_name">
-	<label for = "last_name">last name:</label>
-	<input type = "text" id="lname" name="last_name">
+<p><form action = "/members" method="post" align = center>
+	<label for = "first_name" ">First name:</label>
+	<input type = "text" id="fname" name="first_name" placeholder="first name">
+	<label for = "last_name" >last name:</label>
+	<input type = "text" id="lname" name="last_name" placeholder="last name">
 	<label for = "account_type">Choose Account Type</label>
 	<select name ="account_type">
 		<option value = "standard">Standard Account</option>
 		<option value = "premium"> Premium Account</option>
 	</select>
 	<input type = "submit" value = "register">
-</form>
-<br>
+</form></p>
+</div>

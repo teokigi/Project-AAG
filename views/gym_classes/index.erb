@@ -1,3 +1,4 @@
+<div class="gymclassbody">
 <h2 align=center> Gym Classes Index Page </h2>
 <table border=1 align=center>
 <tr>
@@ -45,14 +46,15 @@
 <hr>
 
 <h2 align=center>Register New Class:</h2>
-<br>
-<form action = "/gym_classes" method="post" align = center>
+
+<p><form action = "/gym_classes" method="post" align = center>
 	<label for = "name">Gym Class Name:</label>
 	<input type = "text" id="gym_name" name="name">
 	<input type = "submit" value = "Generate">
-</form>
+</form></p>
 <hr>
-<h2 align=center>Add New Time Slot for Gym Class </h2>
+<h2 align=center>Add New Time Slot for Class </h2>
+<p>
 <% if @classes != nil %>
 <form action = "/sessions" method="post" align=center>
 	<label for = "gym_class_id">Class:</label>
@@ -60,7 +62,7 @@
 		<% 	for gym_class in @classes %>
 			<% if gym_class.status == "active" %>
 			<option value="<%= gym_class.id %>">
-				<%= gym_class.id %>:<%= gym_class.name %>
+				<%= gym_class.id %> - <%= gym_class.name %>
 			</option>
 			<% end %>
 		<% end %>
@@ -124,5 +126,5 @@
 <% else %>
 	Need to Generate a Gym Class before Gym Time Sessions can be allotted.
 <% end %>
-<br>
-<br>
+</p>
+</div>

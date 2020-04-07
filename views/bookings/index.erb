@@ -1,7 +1,8 @@
+<div class="universalclassbody">
 <h2 align=center> Booking Listings Page </h2>
-<table border=1 align=center>
+<table class="universaltable">
 <tr>
-<th colspan = 8> Booking list</th>
+<th colspan = 8> Bookings list</th>
 </tr>
 <tr>
 <th> Booking ID </th>
@@ -14,18 +15,18 @@
 <th> commands </th>
 <% if @bookings != nil %>
 <% 	for booking in @bookings %>
-<tr class="booking_table_row_contents">
-	<td class="booking_table_data"> <%= booking.id%> </td>
-	<td class="booking_table_data"> <%= booking.member_id %> </td>
-	<td class="booking_table_data"> <%= Member.find_by_id(booking.member_id).fullname %> </td>
-	<td class="booking_table_data">
+<tr>
+	<td> <%= booking.id%> </td>
+	<td> <%= booking.member_id %> </td>
+	<td> <%= Member.find_by_id(booking.member_id).fullname %> </td>
+	<td>
  	<%= GymClass.find_by_id(Session.find_by_id(booking.session_id).gym_class_id).id %>
  	</td>
-	<td class="booking_table_data">
+	<td>
 	<%= GymClass.find_by_id(Session.find_by_id(booking.session_id).gym_class_id).name %>
 	</td>
-	<td class="booking_table_data"> <%= booking.session_id %> </td>
-	<td class="booking_table_data"> <%= Session.find_by_id(booking.session_id).time_slot %> </td>
+	<td> <%= booking.session_id %> </td>
+	<td> <%= Session.find_by_id(booking.session_id).time_slot %> </td>
 	<td id = "booking_index_command_buttons">
 
 	    <form action="/bookings/<%= booking.id %>/delete" method="POST">
@@ -43,9 +44,8 @@
 <hr>
 
 <h2 align=center>Register New Booking Form:</h2>
-<br>
 <form action = "/bookings" method="post" align = center>
-	<label for = "session_id">Session ID:</label>
+	<label for = "session_id">Gym Session:</label>
 	<select name="session_id">
 	<% for gym_class in @gym_classes %>
 		<% if gym_class.status == 'active' %>
@@ -64,7 +64,7 @@
 	<select name="member_id">
 		<% for member in @members %>
 			<% if member.status == 'active' %>
-				<option value="<%= member.id %>"><%= member.id %> <%= member.fullname %></option>
+				<option value="<%= member.id %>"><%= member.id %> - <%= member.fullname %></option>
 			<% elsif member.status == 'inactive' %>
 			<% end %>
 		<% end %>
@@ -76,4 +76,4 @@
 		<p class = "errormessage">Session is full</p>
 	<% end %>
 </form>
-<br>
+</div>

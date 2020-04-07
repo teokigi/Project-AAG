@@ -23,7 +23,7 @@ post '/bookings' do
 	erb(:"/bookings/index")
 end
 
-post '/bookings/:booking_id/:session_id/delete' do
+post '/bookings/:booking_id/delete' do
 	Booking.delete_by_id(params['booking_id'].to_i)
-	redirect to("/bookings/#{params['session_id']}/index")
+	redirect to("/bookings")
 end
