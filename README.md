@@ -9,11 +9,12 @@ install from GEM, Ruby, sinatra, sinatra-contrib-all,PG.
 ### After, run these terminal commands.
 
 This makes sure there are no other iterations of the database on your system, note the sql contains seed data it populates the tables on run.
-    dropdb athletes_assemble_gym
-    createdb athletes_assemble_gym
-    psql -d athletes_assemble_gym -f db/athletes_assemble_gym.sql
-    ruby app.rb
-
+```` 
+dropdb athletes_assemble_gym
+createdb athletes_assemble_gym
+psql -d athletes_assemble_gym -f db/athletes_assemble_gym.sql
+ruby app.rb
+````
 after running
  ````ruby app.rb````
 open a web browser and enter the url
