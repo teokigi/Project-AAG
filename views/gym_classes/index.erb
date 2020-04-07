@@ -11,6 +11,7 @@
 <th> time slot(s) </th>
 <th> Commands </th>
 <% if @classes != nil %>
+		<% @classes.sort!{|a,b| a.id<=>b.id} %>
 <% 	for gym_class in @classes %>
 <tr>
 	<td> <%= gym_class.id%> </td>
