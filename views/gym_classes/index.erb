@@ -18,6 +18,8 @@
 	<td> <%= gym_class.name %> </td>
 	<td> <%= gym_class.status %> </td>
 	<td>
+
+		<% @sessions.sort!{|a,b| a.time_slot<=>b.time_slot} %>	
 		<% for session in @sessions %>
 			<% if session.gym_class_id == gym_class.id%>
 				<a href="/session/<%= session.id %>" alt="<%=session.time_slot%>"><%= session.time_slot %>hrs</a>,
