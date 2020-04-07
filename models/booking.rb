@@ -40,6 +40,31 @@ class Booking
         end
 
     end
+
+    def time_slot_screening
+        sql = " SELECT time_slot FROM sessions
+                WHERE id=$1;"
+        values = [@session_id]
+        query = SqlRunner.run(sql,values).first
+        query = query['time_slot']
+        query2 = sessions_by_member()
+        for each_value in query2
+            if query == each_value
+                return false
+            end
+        end
+        return true
+    end
+    def sessions_by_member()
+        sql = " SELECT time_slot FROM sessions
+                FULL JOIN bookings
+                ON bookings.session_id = sessions.id
+                WHERE member_id=$1;"
+        values=[@member_id]
+        query = SqlRunner.run(sql,values)
+        query.each{|v| p "query2 #{v['time_slot']}"}
+        return query.map{|v| v['time_slot']}
+    end
         #read all
     def self.find_all()
         sql = "SELECT * FROM bookings"
@@ -71,17 +96,17 @@ class Booking
     end
         #delete entry with matching id
     def delete()
+        plus_1_availability()
         sql = "DELETE FROM bookings WHERE id = $1"
         values = [@id]
         SqlRunner.run(sql,values)
-        plus_1_availability()
     end
-
 		#delete by id
     def self.delete_by_id(id)
-        sql = "DELETE FROM bookings WHERE id = $1"
+        sql = "DELETE FROM bookings WHERE id = $1 RETURNING *"
         values = [id]
-        query = SqlRunner.run(sql,values)
+        query = Booking.new(SqlRunner.run(sql,values).first)
+        query.plus_1_availability()
     end
         #find by id
     def self.find_by_id(id)
@@ -122,32 +147,5 @@ class Booking
                 WHERE id = $1"
         values = [@session_id]
         SqlRunner.run(sql,values)
-    end
-
-    def time_slot_screening
-        sql = " SELECT * FROM sessions
-                WHERE id=$1;"
-        values = [@session_id]
-        query = SqlRunner.run(sql,values).first
-        query = query['time_slot']
-        query2 = sessions_by_member()
-        for each_value in query2
-            if query == each_value
-                return false
-            else
-                return true
-            end
-        end
-    end
-
-    def sessions_by_member()
-        sql = " SELECT time_slot FROM sessions
-                FULL JOIN bookings
-                ON bookings.session_id = sessions.id
-                WHERE member_id=$1;"
-        values=[@member_id]
-        query = SqlRunner.run(sql,values)
-        query = query.map{|v| v['time_slot']}
-        return query
     end
 end
