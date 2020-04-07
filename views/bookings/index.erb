@@ -27,7 +27,7 @@
 	</td>
 	<td> <%= booking.session_id %> </td>
 	<td> <%= Session.find_by_id(booking.session_id).time_slot %> </td>
-	<td id = "booking_index_command_buttons">
+	<td>
 
 	    <form action="/bookings/<%= booking.id %>/delete" method="POST">
         <input type="submit" value="delete" />
@@ -60,7 +60,7 @@
 		<% end %>
     <% end %>
 	</select>
-	<label for ="member_id">member ID:</label>
+	<label for ="member_id"> Member:</label>
 	<select name="member_id">
 		<% for member in @members %>
 			<% if member.status == 'active' %>

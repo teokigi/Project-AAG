@@ -1,6 +1,6 @@
 <div class="universalclassbody">
 <h2 align = center> members index page </h2>
-<table border=1 align=center>
+<table class="universaltable">
 <tr>
 <th colspan = 6> Members list</th>
 </tr>
@@ -13,12 +13,12 @@
 <th> Commands </th>
 <% if @members != nil %>
 <% 	for member in @members %>
-<tr class="member_table_row_contents">
-	<td class="member_table_data"> <%= member.id%> </td>
-	<td class="member_table_data"> <%= member.account_type%> </td>
-	<td class="member_table_data"> <%= member.first_name %> </td>
-	<td class="member_table_data"> <%= member.last_name %> </td>
-	<td class="member_table_data"> <%= member.status %> </td>
+<tr>
+	<td> <%= member.id%> </td>
+	<td> <%= member.account_type%> </td>
+	<td> <%= member.first_name %> </td>
+	<td> <%= member.last_name %> </td>
+	<td> <%= member.status %> </td>
 	<td id = "members_index_command_buttons">
 		<form action="/members/<%= member.id %>/view" method "GET">
 		<input type="submit" value="View">
