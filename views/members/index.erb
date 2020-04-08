@@ -22,16 +22,44 @@
 		<td> <%= member.status %> </td>
 		<td id = "members_index_command_buttons">
 			<form action="/members/<%= member.id %>/view" method "GET">
-			<button type="submit" class="viewbutton"><i class="material-icons" style="font-size:11px;" onhover="view">search</i><span class="tooltiptext">View/Edit member</span></button>
+			<button type="submit" class="viewbutton">
+				<i class="material-icons" style="font-size:14px;" onhover="view">
+					search
+				</i>
+					<span class="tooltiptext">
+						View/Edit member
+					</span>
+			</button>
 			</form>
 		    <form action="/members/<%= member.id %>/delete" method="POST">
-	        <input type="submit" value="delete" />
+	        <button type="submit" class="deletebutton">
+				<i class="material-icons" style="font-size:14px">
+					delete
+				</i>
+				<span class="tooltiptext">
+					Delete member
+				</span>
+			</button>
 	    	</form>
 			<form action="/members/<%= member.id %>/toggle" method="POST">
 			<% if member.status == "active" %>
-				<input type="submit" value="deactivate">
+				<button type="submit" class="deactivatebutton">
+					<i class="material-icons" style="font-size:14px">
+						layers_clear
+					</i>
+					<span class="tooltiptext">
+						deactivate member
+					</span>
+				</button>
 			<% else %>
-				<input type="submit" value="activate">
+				<button type="submit" class="activatebutton">
+					<i class="material-icons" style="font-size:14px">
+						layers_clear
+					</i>
+					<span class="tooltiptext">
+						Re-activate member
+					</span>
+				</button>
 			<% end %>
 			</form>
 		</td>
