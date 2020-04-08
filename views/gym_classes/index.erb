@@ -28,13 +28,34 @@
 	</td>
 	<td id = "gym_class_index_command_buttons">
 	    <form action="/gym_classes/<%= gym_class.id %>/delete" method="POST">
-        <input type="submit" value="delete" />
+        <button type="submit" class="deletebutton">
+			<i class="material-icons" style="font-size:14px">
+				delete
+			</i>
+			<span class="tooltiptext">
+				Delete Class
+			</span>
+		</button>
     	</form>
 		<form action="/gym_classes/<%= gym_class.id %>/toggle" method="POST">
 		<% if gym_class.status == "active" %>
-			<input type="submit" value="deactivate">
+			<button type="submit" class="deactivatebutton">
+				<i class="material-icons" style="font-size:14px">
+					layers_clear
+				</i>
+				<span class="tooltiptext">
+					deactivate class
+				</span>
+			</button>
 		<% else %>
-			<input type="submit" value="activate">
+			<button type="submit" class="activatebutton">
+				<i class="material-icons" style="font-size:14px">
+					layers
+				</i>
+				<span class="tooltiptext">
+					Re-activate class
+				</span>
+			</button>
 		<% end %>
 		</form>
 	</td>

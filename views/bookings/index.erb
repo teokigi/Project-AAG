@@ -29,9 +29,15 @@
 		<td> <%= booking.session_id %> </td>
 		<td> <%= Session.find_by_id(booking.session_id).time_slot %> </td>
 		<td>
-
 		    <form action="/bookings/<%= booking.id %>/delete" method="POST">
-	        <input type="submit" value="delete" />
+	        <button type="submit" class="deletebutton">
+				<i class="material-icons" style="font-size:14px">
+					delete
+				</i>
+				<span class="tooltiptext">
+					Delete Booking
+				</span>
+			</button>
 	    	</form>
 		</td>
 	</tr>
