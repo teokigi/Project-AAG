@@ -12,9 +12,9 @@
 <th> status </th>
 <th> Commands </th>
 <% if @members != nil %>
-	<% @members.sort!{|a,b| a.id<=>b.id} %>	
+	<% @members.sort!{|a,b| a.id<=>b.id} %>
 	<% 	for member in @members %>
-	<tr>
+	<tr class="members<%= member.status %>">
 		<td> <%= member.id%> </td>
 		<td> <%= member.account_type%> </td>
 		<td> <%= member.first_name %> </td>
