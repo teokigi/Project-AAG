@@ -22,7 +22,7 @@
 		<td> <%= member.status %> </td>
 		<td id = "members_index_command_buttons">
 			<form action="/members/<%= member.id %>/view" method "GET">
-			<input type="submit" value="View">
+			<button type="submit" class="viewbutton"><i class="material-icons" style="font-size:11px;" onhover="view">search</i><span class="tooltiptext">View/Edit member</span></button>
 			</form>
 		    <form action="/members/<%= member.id %>/delete" method="POST">
 	        <input type="submit" value="delete" />
