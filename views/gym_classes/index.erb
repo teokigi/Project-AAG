@@ -13,7 +13,7 @@
 <% if @classes != nil %>
 		<% @classes.sort!{|a,b| a.id<=>b.id} %>
 <% 	for gym_class in @classes %>
-<tr <tr class="gymclass<%= gym_class.status %>">
+<tr class="gymclass<%= gym_class.status %>">
 	<td> <%= gym_class.id%> </td>
 	<td> <%= gym_class.name %> </td>
 	<td> <%= gym_class.status %> </td>
