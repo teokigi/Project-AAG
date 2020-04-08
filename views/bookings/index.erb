@@ -16,7 +16,8 @@
 <% if @bookings != nil %>
 	<% @bookings.sort!{|a,b| a.id<=>b.id} %>
 	<% 	for booking in @bookings %>
-	<tr <tr class="gymclass<%= GymClass.find_by_id(Session.find_by_id(booking.session_id).gym_class_id).status %>">>
+	<tr class=
+"gymclass<%= GymClass.find_by_id(Session.find_by_id(booking.session_id).gym_class_id).status %>">
 		<td> <%= booking.id%> </td>
 		<td> <%= booking.member_id %> </td>
 		<td> <%= Member.find_by_id(booking.member_id).fullname %> </td>
