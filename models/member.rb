@@ -56,7 +56,7 @@ class Member
     end
 
 	def find
-		sql = "	SELECT * FROM members
+		sql = "SELECT * FROM members
 				WHERE id = $1"
 		values = [@id]
 		query = SqlRunner.run(sql,values)

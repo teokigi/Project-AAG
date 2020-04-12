@@ -55,6 +55,8 @@
 <form action = "/bookings" method="post" align = center>
 	<label for = "session_id">Gym Session:</label>
 	<select name="session_id">
+	<% @gym_classes.sort!{|a,b| a.id<=>b.id} %>
+	<% @sessions.sort!{|a,b| a.time_slot<=>b.time_slot} %>
 	<% for gym_class in @gym_classes %>
 		<% if gym_class.status == 'active' %>
 				<% for session in @sessions %>
@@ -70,6 +72,7 @@
 	</select>
 	<label for ="member_id"> Member:</label>
 	<select name="member_id">
+	<% @members.sort!{|a,b| a.id<=>b.id} %>
 		<% for member in @members %>
 			<% if member.status == 'active' %>
 				<option value="<%= member.id %>"><%= member.id %> - <%= member.fullname %></option>
