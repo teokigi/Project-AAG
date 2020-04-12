@@ -26,18 +26,8 @@ class Membertest < Minitest::Test
 		Member.delete(standard_member.id)
 	end
 
-	def test_002_find_testing
-		standard_member = @standard_member01.create
-		assert_equal('Test',standard_member.find.first_name)
-		#removes test seed
-		Member.delete(standard_member.id)
-
-	end
-
-	def test_003_find_all_testing
-
+	def test_002_find_all_testing
 		before_length = Member.find_all
-
 		#method if returns nil should be set to 0, else count how many
 		#values are returned with .length
 		if before_length == nil
@@ -55,7 +45,15 @@ class Membertest < Minitest::Test
 		Member.delete(standard_member.id)
 	end
 
-	def test_005_Update_testing
+	def test_003_find_by_id_testing
+		standard_member = @standard_member01.create
+		id = standard_member.id
+		assert_equal('Test',Member.find_by_id(id).first_name)
+		#removes test seed
+		Member.delete(standard_member.id)
+	end
+
+	def test_004_Update_testing
 		standard_member = @standard_member01.create
 		standard_member.first_name = "Updatetest"
 		standard_member.update
@@ -72,7 +70,7 @@ class Membertest < Minitest::Test
 		Member.delete(standard_member.id)
 	end
 
-	def test_006_deactivate_active_toggle_testing
+	def test_005_deactivate_active_toggle_testing
 		standard_member = @standard_member01.create
 		standard_member.toggle_status
 		assert_equal('inactive',standard_member.find.status)
@@ -81,7 +79,7 @@ class Membertest < Minitest::Test
 		Member.delete(standard_member.id)
 	end
 
-	def test_007_delete_by_id_testing
+	def test_006_delete_by_id_testing
 		#generates a new id assigning it to standard_member
 		standard_member = @standard_member01.create
 		id = standard_member.id
@@ -91,25 +89,10 @@ class Membertest < Minitest::Test
 		refute(standard_member.find)
 	end
 
-	def test_008_find_by_id_testing
-		standard_member = @standard_member01.create
-		id = standard_member.id
-		assert_equal('Test',Member.find_by_id(id).first_name)
-		#removes test seed
-		Member.delete(standard_member.id)
-	end
-
-	def test_009_fullname_testing
+	def test_007_fullname_testing
 		standard_member = @standard_member01.create
 		assert_equal('Test Seed',standard_member.fullname)
 		Member.delete(standard_member.id)
 	end
 
-	def test_010_bookings
-
-	end
-
-	def test_011_returning_availability
-
-	end
 end

@@ -56,31 +56,11 @@ class Member
     end
         #delete by id
     def self.delete(member_id)
-		session_ids = self.sessions(member_id)
-		for s_id in session_ids
-			self.return_session_availability(s_id)
-		end
 		sql = "DELETE FROM members WHERE id = $1 RETURNING *"
         values = [id]
         query = SqlRunner.run(sql,values).first()
     end
 
-	def self.sessions(member_id)
-		sql = "SELECT session_id from bookings
-				WHERE member_id = $1"
-		value = [member_id]
-		query = SqlRunner.run(sql,values)
-		return query.each{|v| v['session_id']}
-	end
-
-	def self.return_session_availability(session_id)
-		sql =  "UPDATE sessions
-                SET available_bookings
-                = available_bookings + 1
-                WHERE id = $1"
-        values = [session_id]
-        SqlRunner.run(sql,values)
-	end
 	def update
 		sql = " UPDATE members SET
  				(
