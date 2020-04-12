@@ -65,14 +65,16 @@ class Member
 	end
 
 	def delete
+		bookings()
 		sql = "	DELETE FROM members
-				WHERE id = $1"
+				WHERE id = $1 RETURNING *"
 		values = [@id]
-		SqlRunner.run(sql,values)
+		query = SqlRunner.run(sql,values)
 	end
         #delete by id
     def self.delete_by_id(id)
-        sql = "DELETE FROM members WHERE id = $1"
+		bookings_by_id(id)
+		sql = "DELETE FROM members WHERE id = $1 RETURNING *"
         values = [id]
         query = SqlRunner.run(sql,values)
     end
