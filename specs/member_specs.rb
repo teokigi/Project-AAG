@@ -23,14 +23,15 @@ class Membertest < Minitest::Test
 		assert_equal('Standard', standard_member.find.account_type)
 		assert_equal('active', standard_member.find.status)
 		#removes test seed
-		standard_member.delete
+		Member.delete(standard_member.id)
 	end
 
 	def test_002_find_testing
 		standard_member = @standard_member01.create
 		assert_equal('Test',standard_member.find.first_name)
 		#removes test seed
-		standard_member.delete
+		Member.delete(standard_member.id)
+
 	end
 
 	def test_003_find_all_testing
@@ -51,17 +52,7 @@ class Membertest < Minitest::Test
 		change_in_length = after_length - before_length
 		assert_equal(1, change_in_length)
 		#remove seeded data after testing
-		standard_member.delete
-	end
-
-
-	def test_004_delete_testing_and_find_failed_testing
-		#generates a new id assigning it to standard_member
-		standard_member = @standard_member01.create
-		#deletes table entry where id matches standard_member
-		standard_member.delete
-		#finding standard_member should return nil
-		refute(standard_member.find)
+		Member.delete(standard_member.id)
 	end
 
 	def test_005_Update_testing
@@ -78,7 +69,7 @@ class Membertest < Minitest::Test
 		standard_member.status = "inactive"
 		standard_member.update
 		assert_equal('inactive',standard_member.find.status)
-		standard_member.delete
+		Member.delete(standard_member.id)
 	end
 
 	def test_006_deactivate_active_toggle_testing
@@ -87,7 +78,7 @@ class Membertest < Minitest::Test
 		assert_equal('inactive',standard_member.find.status)
 		standard_member.toggle_status
 		assert_equal('active',standard_member.find.status)
-		standard_member.delete
+		Member.delete(standard_member.id)
 	end
 
 	def test_007_delete_by_id_testing
@@ -105,12 +96,20 @@ class Membertest < Minitest::Test
 		id = standard_member.id
 		assert_equal('Test',Member.find_by_id(id).first_name)
 		#removes test seed
-		standard_member.delete
+		Member.delete(standard_member.id)
 	end
 
 	def test_009_fullname_testing
 		standard_member = @standard_member01.create
 		assert_equal('Test Seed',standard_member.fullname)
-		standard_member.delete
+		Member.delete(standard_member.id)
+	end
+
+	def test_010_bookings
+
+	end
+
+	def test_011_returning_availability
+
 	end
 end
