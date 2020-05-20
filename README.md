@@ -4,8 +4,12 @@ Gym App for managing members, gym classes and bookings.
 
 ## Pre-Requisites procedure to run app
 
-install from GEM, Ruby, sinatra, sinatra-contrib-all,PG.
-
+Language: Ruby
+database: PostgreSQL
+Ruby Gem's:
+- sinatra
+- sinatra-contrib-all
+- PG
 ### After, run these terminal commands.
 
 This makes sure there are no other iterations of the database on your system, note the sql contains seed data it populates the tables on run.
