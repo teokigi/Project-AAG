@@ -8,7 +8,7 @@ Language: Ruby
 database: PostgreSQL
 Ruby Gem's:
 - sinatra
-- sinatra-contrib-all
+- sinatra-contrib
 - PG
 ### After, run these terminal commands.
 
