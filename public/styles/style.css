@@ -1,0 +1,23 @@
+#layout_heading{
+	display:flex;
+	justify-content:center;
+}
+#navigation{
+	display:flex;
+	justify-content: space-around;
+}
+
+#members_index_command_buttons{
+	display:inline-flex;
+	justify-content:space-around;
+	margin: 5px;
+	border:0px;
+}
+
+.member_table_row_contents{
+	text-align:center;
+}
+.member_table_data{
+	padding:5px;
+
+}
